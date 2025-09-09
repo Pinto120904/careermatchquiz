@@ -1,0 +1,541 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Career Match Quiz — 30‑Question Trait Engine + Live Job Links</title>
+  <meta name="description" content="Answer 30 questions to discover careers that fit your traits. Then add education & degree and jump to live job listings. No login." />
+  <style>
+    :root { --bg:#0f172a; --card:#0b1222; --ink:#ffffff; --muted:#9ca3af; --brand:#22c55e; --accent:#38bdf8; --line:#1f2937; --opt:#091326; --optSel:#14532d; --optSelBorder:#16a34a; }
+    * { box-sizing: border-box; }
+    html, body { height: 100%; }
+    body { margin:0; font-family: system-ui, -apple-system, Segoe UI, Roboto, Inter, "Helvetica Neue", Arial, sans-serif; background: radial-gradient(60% 60% at 50% 0%, #13223d 0%, #0f172a 60%); color: var(--ink); }
+    header { padding: 28px 16px; text-align:center; border-bottom: 1px solid var(--line); }
+    header h1 { margin: 0 0 6px; font-size: clamp(22px, 3vw, 36px); letter-spacing: 0.3px; color: var(--ink); }
+    header p { margin:0; color: var(--muted); }
+    .wrap { max-width: 950px; margin: 0 auto; padding: 20px; }
+    .card { background: var(--card); border: 1px solid var(--line); border-radius: 16px; padding: 18px; box-shadow: 0 8px 30px rgba(0,0,0,0.25); color: var(--ink); }
+    .btn { display:inline-block; padding:12px 16px; border-radius:12px; border:1px solid #273244; color:var(--ink); background:#0b1222; cursor:pointer; text-decoration:none; font-weight:700; }
+    .btn.primary { background: var(--brand); color:#04110a; border-color: #16a34a; }
+    .btn.ghost { background: transparent; }
+    .btn:disabled { opacity: .5; cursor: not-allowed; }
+    .qtext{ font-size:18px; margin: 0 0 10px; color: var(--ink); }
+    .opts { display:grid; gap:10px; grid-template-columns: repeat(auto-fit, minmax(220px,1fr)); }
+    .opt { padding:12px; border:1px solid #273244; background:var(--opt); border-radius:12px; cursor:pointer; color: var(--ink); transition: transform .05s ease, background .15s ease, border-color .15s ease; }
+    .opt:hover { outline:2px solid #264168; }
+    .opt.selected { background: var(--optSel); border-color: var(--optSelBorder); }
+    .navrow { display:flex; gap:10px; margin-top:12px; }
+    .progress { height: 12px; background:#0b1222; border:1px solid #273244; border-radius:999px; overflow:hidden; margin-top:10px; }
+    .bar { height:100%; width:0%; background: linear-gradient(90deg, var(--accent), var(--brand)); transition: width 0.25s ease; }
+    .mini { color: var(--muted); font-size: 13px; }
+    .pill { display:inline-block; font-size:12px; padding:4px 8px; border-radius:999px; background:#0b1222; border:1px solid #273244; margin-left:6px; color: var(--ink); }
+    .grid { display:grid; gap:12px; grid-template-columns: repeat(auto-fit, minmax(240px,1fr)); }
+    label { display:block; margin: 8px 0 4px; font-weight:600; color: var(--ink); }
+    input[type="text"], select { width:100%; padding:12px 14px; border-radius:10px; border:1px solid #273244; background:#091326; color:var(--ink); }
+    .role { padding:14px; border:1px solid #273244; border-radius:12px; background:#091326; color: var(--ink); }
+    .role h3 { margin:0 0 6px; font-size:18px; color: var(--ink); }
+    .why{ color:var(--muted); font-size:14px; margin:6px 0 10px; }
+    footer { text-align:center; color:var(--muted); padding:28px 16px; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Career Match Quiz</h1>
+    <p>30 questions → add education & degree → see best‑fit careers with live apply links. No login.</p>
+  </header>
+
+  <main class="wrap">
+    <div class="card" id="quizCard">
+      <div id="stage-questions">
+        <div class="mini" id="q-counter">Question 1 of 30</div>
+        <h2 class="qtext" id="q-text">Loading first question…</h2>
+        <div class="opts" id="q-opts"></div>
+        <div class="progress" aria-label="progress"><div class="bar" id="bar"></div></div>
+        <div class="navrow">
+          <button class="btn ghost" id="backBtn" disabled>Back</button>
+          <button class="btn primary" id="nextBtn" disabled>Next</button>
+        </div>
+      </div>
+
+      <div id="stage-profile" style="display:none">
+        <h2 style="margin:0 0 10px; color: var(--ink);">Tell us about your background</h2>
+        <div class="grid">
+          <div>
+            <label for="loc">Preferred job location (city, state)</label>
+            <input id="loc" type="text" placeholder="e.g., San Antonio, TX" />
+            <div style="margin-top:8px"><label style="color: var(--ink);"><input type="checkbox" id="relocate" /> I'm willing to relocate</label></div>
+          </div>
+          <div>
+            <label for="edu">Highest education</label>
+            <select id="edu">
+              <option value="hs">High school / GED</option>
+              <option value="somecollege">Some college</option>
+              <option value="assoc">Associate</option>
+              <option value="bachelor" selected>Bachelor's</option>
+              <option value="master">Master's</option>
+              <option value="phd">Doctorate</option>
+              <option value="cert">Professional certs</option>
+            </select>
+          </div>
+          <div>
+            <label for="major">Degree or focus (optional)</label>
+            <input id="major" type="text" placeholder="e.g., Nursing, Business, Computer Science" />
+          </div>
+          <div>
+            <label for="years">Years of full‑time experience</label>
+            <select id="years">
+              <option value="0">0 (Entry Level)</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5+</option>
+            </select>
+          </div>
+        </div>
+        <div style="margin-top:12px" class="navrow">
+          <button class="btn ghost" id="backToQuiz">Back</button>
+          <button class="btn primary" id="seeMatches">See my matches</button>
+        </div>
+      </div>
+
+      <div id="stage-results" style="display:none">
+        <h2 style="margin:0 0 6px; color: var(--ink);">Top career matches</h2>
+        <div class="mini">Based on your trait profile + education/degree fit.</div>
+        <div id="roleList" class="grid" style="margin-top:12px;"></div>
+        <div style="margin-top:14px">
+          <button class="btn" id="restart">Restart quiz</button>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer>Made with ❤️ — simple words, clear paths, entry roles included.</footer>
+
+  <script>
+    // -------------------- 30 QUESTION BANK (each has a "None of these fit me") --------------------
+    const QUESTIONS = [
+      {t:"When meeting new people, how do you usually feel?", o:[
+        {label:"Excited and talkative", w:{E:2,S:1}},
+        {label:"Curious and observant", w:{I:2}},
+        {label:"Creative and expressive", w:{A:2}},
+        {label:"Careful and reserved", w:{C:2}},
+        {label:"None of these fit me", w:{}}
+      ]},
+      {t:"Pick a weekend activity:", o:[
+        {label:"Building or fixing something", w:{R:2}},
+        {label:"Helping people or volunteering", w:{S:2}},
+        {label:"Drawing, music, or writing", w:{A:2}},
+        {label:"Exploring puzzles or science", w:{I:2}},
+        {label:"None of these fit me", w:{}}
+      ]},
+      {t:"Which school subject did you enjoy most?", o:[
+        {label:"Math or Science", w:{I:2}},
+        {label:"Art or Reading", w:{A:2}},
+        {label:"Sports or Shop class", w:{R:2}},
+        {label:"Student Council or Leadership", w:{E:2}},
+        {label:"None of these fit me", w:{}}
+      ]},
+      {t:"What motivates you most?", o:[
+        {label:"Helping others succeed", w:{S:2}},
+        {label:"Solving tough problems", w:{I:2}},
+        {label:"Bringing new ideas to life", w:{A:2}},
+        {label:"Being organized and efficient", w:{C:2}},
+        {label:"None of these fit me", w:{}}
+      ]},
+      {t:"Preferred work style:", o:[
+        {label:"Clear steps and checklists", w:{C:2}},
+        {label:"Freedom to try new ideas", w:{A:2,I:1}},
+        {label:"Talking to people often", w:{S:2,E:1}},
+        {label:"Hands‑on and moving", w:{R:2}},
+        {label:"None of these fit me", w:{}}
+      ]},
+      {t:"You're given a new tool. First instinct:", o:[
+        {label:"Read the manual and test features", w:{I:2,C:1}},
+        {label:"Click around and design something", w:{A:2}},
+        {label:"Ask someone and watch them", w:{S:1,I:1}},
+        {label:"Take it apart and rebuild", w:{R:2}},
+        {label:"None of these fit me", w:{}}
+      ]},
+      {t:"What environment do you prefer?", o:[
+        {label:"Quiet, focus time", w:{I:2}},
+        {label:"Busy and with people", w:{E:1,S:1}},
+        {label:"Orderly with clear steps", w:{C:2}},
+        {label:"Workshop or field work", w:{R:2}},
+        {label:"None of these fit me", w:{}}
+      ]},
+      {t:"Which task would you pick?", o:[
+        {label:"Make a simple chart from data", w:{I:2,C:1}},
+        {label:"Write a short ad or post", w:{A:2,E:1}},
+        {label:"Plan a delivery schedule", w:{C:2}},
+        {label:"Fix a broken device", w:{R:2}},
+        {label:"None of these fit me", w:{}}
+      ]},
+      {t:"Your biggest strength:", o:[
+        {label:"Finding patterns", w:{I:2}},
+        {label:"Convincing others", w:{E:2}},
+        {label:"Caring about people", w:{S:2}},
+        {label:"Building or crafting", w:{R:2}},
+        {label:"None of these fit me", w:{}}
+      ]},
+      {t:"You’d rather…", o:[
+        {label:"Work with numbers", w:{I:2,C:1}},
+        {label:"Talk and sell", w:{E:2}},
+        {label:"Design visuals", w:{A:2}},
+        {label:"Support people with tech", w:{S:1,R:1}},
+        {label:"None of these fit me", w:{}}
+      ]},
+      {t:"When learning something new, what helps you most?", o:[
+        {label:"Watching (visual)", w:{A:1,I:1}},
+        {label:"Doing it hands‑on", w:{R:2,I:1}},
+        {label:"Listening to others", w:{S:2,I:1}},
+        {label:"Reading instructions", w:{C:2}},
+        {label:"None of these fit me", w:{}}
+      ]},
+      {t:"What sounds like success?", o:[
+        {label:"Everything balanced", w:{C:2,I:1}},
+        {label:"A product that excites people", w:{A:1,E:1}},
+        {label:"Happy customers", w:{S:2}},
+        {label:"Machines working smoothly", w:{R:2}},
+        {label:"None of these fit me", w:{}}
+      ]},
+      {t:"Pick a course you'd ace:", o:[
+        {label:"Statistics", w:{I:2}},
+        {label:"Starting a small business", w:{E:2}},
+        {label:"Design basics", w:{A:2}},
+        {label:"How things run (operations)", w:{C:2}},
+        {label:"Biology or Health Science", w:{S:2,I:1}},
+        {label:"Technology / Computers", w:{R:1,I:2}},
+        {label:"None of these fit me", w:{}}
+      ]},
+      {t:"Tight deadline. You…", o:[
+        {label:"Make a checklist and focus", w:{C:2}},
+        {label:"Get people together and decide", w:{E:2}},
+        {label:"Build a quick test", w:{R:1,I:1}},
+        {label:"Ask users what matters most", w:{S:1,A:1}},
+        {label:"None of these fit me", w:{}}
+      ]},
+      {t:"Preferred tools (simple words):", o:[
+        {label:"Spreadsheets or simple data tools", w:{I:2,C:1}},
+        {label:"Customer contact tools", w:{E:2}},
+        {label:"Design apps", w:{A:2}},
+        {label:"Help desk / ticket tools", w:{R:1,S:1}},
+        {label:"None of these fit me", w:{}}
+      ]},
+      {t:"Which feedback do you like most?", o:[
+        {label:"It's precise and right", w:{C:2}},
+        {label:"It sold / signed", w:{E:2}},
+        {label:"It's clear and beautiful", w:{A:2}},
+        {label:"It helped someone", w:{S:2}},
+        {label:"None of these fit me", w:{}}
+      ]},
+      {t:"Work you enjoy is…", o:[
+        {label:"Predictable and organized", w:{C:2}},
+        {label:"People‑focused", w:{S:2}},
+        {label:"Based on data", w:{I:2}},
+        {label:"Physical / technical", w:{R:2}},
+        {label:"None of these fit me", w:{}}
+      ]},
+      {t:"Pick a challenge:", o:[
+        {label:"Save time with a new process", w:{C:2,E:1}},
+        {label:"Find insights in messy data", w:{I:2}},
+        {label:"Win over a tough client", w:{E:2}},
+        {label:"Fix a production issue", w:{R:2}},
+        {label:"None of these fit me", w:{}}
+      ]},
+      {t:"Your team sees you as…", o:[
+        {label:"The organizer", w:{C:2}},
+        {label:"The analyst", w:{I:2}},
+        {label:"The people person", w:{S:2}},
+        {label:"The builder", w:{R:2}},
+        {label:"None of these fit me", w:{}}
+      ]},
+      {t:"Which document would you take ownership of?", o:[
+        {label:"Step‑by‑step guide / checklist", w:{C:2}},
+        {label:"Pitch or simple plan", w:{E:2}},
+        {label:"Design style guide", w:{A:2}},
+        {label:"Fix‑it guide / troubleshooting", w:{R:2}},
+        {label:"None of these fit me", w:{}}
+      ]},
+      {t:"A good day ends with…", o:[
+        {label:"Everything matched and tidy", w:{C:2}},
+        {label:"A yes from someone", w:{E:2}},
+        {label:"A finished design", w:{A:2}},
+        {label:"All tickets solved", w:{R:2,S:1}},
+        {label:"None of these fit me", w:{}}
+      ]},
+      {t:"Which meeting would you go to?", o:[
+        {label:"Data review", w:{I:2}},
+        {label:"Sales update", w:{E:2}},
+        {label:"Usability test chat", w:{A:1,S:1}},
+        {label:"Team meeting", w:{C:2}},
+        {label:"None of these fit me", w:{}}
+      ]},
+      {t:"Your goals are mostly…", o:[
+        {label:"Measured by numbers", w:{I:1,C:1}},
+        {label:"Winning and growth", w:{E:2}},
+        {label:"Helping people more", w:{S:2}},
+        {label:"Keeping things running", w:{R:2}},
+        {label:"None of these fit me", w:{}}
+      ]},
+      {t:"Tomorrow you could…", o:[
+        {label:"Build a report", w:{I:2,C:1}},
+        {label:"Call new contacts", w:{E:2}},
+        {label:"Design a simple page", w:{A:2}},
+        {label:"Install a device", w:{R:2}},
+        {label:"None of these fit me", w:{}}
+      ]},
+      {t:"You’re energized by…", o:[
+        {label:"Finding the truth in numbers", w:{I:2}},
+        {label:"Winning and recognition", w:{E:2}},
+        {label:"Expressing ideas visually", w:{A:2}},
+        {label:"Helping people fix problems", w:{S:2}},
+        {label:"None of these fit me", w:{}}
+      ]},
+      {t:"A complication pops up. You…", o:[
+        {label:"Re‑plan the steps", w:{C:2}},
+        {label:"Talk it through and adjust", w:{E:2}},
+        {label:"Try a new idea fast", w:{A:2}},
+        {label:"Jump in and unstick it", w:{R:2}},
+        {label:"None of these fit me", w:{}}
+      ]},
+      {t:"Best compliment for you:", o:[
+        {label:"So reliable and organized", w:{C:2}},
+        {label:"Great closer and motivator", w:{E:2}},
+        {label:"Very creative", w:{A:2}},
+        {label:"Super helpful and kind", w:{S:2}},
+        {label:"None of these fit me", w:{}}
+      ]},
+      {t:"How do you learn best?", o:[
+        {label:"Seeing pictures or videos (visual)", w:{A:1,I:1}},
+        {label:"Hands‑on doing (kinesthetic)", w:{R:2,I:1}},
+        {label:"Listening to someone explain (auditory)", w:{S:1,I:1}},
+        {label:"Reading and taking notes", w:{C:2}},
+        {label:"None of these fit me", w:{}}
+      ]},
+      {t:"Which metric would you own?", o:[
+        {label:"Accuracy / error rate", w:{C:2}},
+        {label:"Qualified leads", w:{E:2}},
+        {label:"Engagement or clicks", w:{A:1,E:1}},
+        {label:"Time to resolve", w:{R:2}},
+        {label:"None of these fit me", w:{}}
+      ]},
+      {t:"What do you trust most?", o:[
+        {label:"Data and evidence", w:{I:2}},
+        {label:"Market signals", w:{E:2}},
+        {label:"User feedback", w:{S:2}},
+        {label:"Bench tests", w:{R:2}},
+        {label:"None of these fit me", w:{}}
+      ]},
+      {t:"Pick a role on a team:", o:[
+        {label:"Planner", w:{C:2}},
+        {label:"Presenter", w:{E:2}},
+        {label:"Designer", w:{A:2}},
+        {label:"Fixer", w:{R:2}},
+        {label:"None of these fit me", w:{}}
+      ]},
+      {t:"Which workspace do you like?", o:[
+        {label:"Desk with a screen", w:{I:1,C:1}},
+        {label:"On‑the‑go with people", w:{E:1,S:1}},
+        {label:"Studio / creative space", w:{A:2}},
+        {label:"Shop / lab", w:{R:2}},
+        {label:"None of these fit me", w:{}}
+      ]}
+    ];
+
+    const TOTAL = QUESTIONS.length; // 30
+
+    // -------------------- ROLES (entry‑friendly + salaries) --------------------
+    const ROLES = [
+      {title:"Data Analyst (Entry)", desc:"Look at numbers and find patterns.", traits:{I:0.9,C:0.6}, eduMin:"assoc", majors:["data","computer","information","statistics","math","analytics","economics"], salaryUSD:55000, queries:["Data Analyst","Junior Data Analyst","Entry Level Data Analyst"]},
+      {title:"Business Assistant", desc:"Help teams improve how they work.", traits:{I:0.6,C:0.8,S:0.3}, eduMin:"bachelor", majors:["business","information","systems","supply","operations"], salaryUSD:48000, queries:["Business Assistant","Operations Assistant"]},
+      {title:"Project Assistant", desc:"Help plan tasks and keep projects on track.", traits:{C:0.8,E:0.4,S:0.3}, eduMin:"assoc", majors:["business","management","project"], salaryUSD:46000, queries:["Project Assistant","Project Coordinator","Junior Project Manager"]},
+      {title:"Operations Assistant", desc:"Keep daily operations running.", traits:{C:0.8,I:0.3}, eduMin:"hs", majors:["business","operations","logistics"], salaryUSD:42000, queries:["Operations Assistant","Logistics Coordinator"]},
+      {title:"Customer Support Rep", desc:"Help and support customers.", traits:{S:0.8,E:0.4}, eduMin:"hs", majors:["business","communications","marketing"], salaryUSD:40000, queries:["Customer Support Representative","Customer Success Representative"]},
+      {title:"Sales Representative (Entry)", desc:"Talk to people and sell products.", traits:{E:0.9,S:0.4}, eduMin:"hs", majors:["business","marketing","communications"], salaryUSD:42000, queries:["Entry Level Sales","Sales Development Representative","Business Development Representative"]},
+      {title:"Marketing Assistant", desc:"Support social media and campaigns.", traits:{A:0.6,E:0.4,C:0.3}, eduMin:"assoc", majors:["marketing","communications","journalism","design"], salaryUSD:43000, queries:["Marketing Assistant","Marketing Coordinator","Digital Marketing Assistant"]},
+      {title:"Junior UX/UI Designer", desc:"Design easy‑to‑use screens.", traits:{A:0.9,I:0.3}, eduMin:"somecollege", majors:["design","hci","human","interaction","graphic","art"], salaryUSD:65000, queries:["Junior UX Designer","Entry Level UX Designer","Product Designer"]},
+      {title:"IT Support (Entry)", desc:"Help people fix tech issues.", traits:{R:0.6,S:0.4,C:0.3}, eduMin:"hs", majors:["it","information","computer","network"], salaryUSD:42000, queries:["IT Support","Help Desk","Desktop Support"]},
+      {title:"Supply Chain Assistant", desc:"Track materials and deliveries.", traits:{I:0.6,C:0.7}, eduMin:"bachelor", majors:["supply","logistics","industrial","operations"], salaryUSD:46000, queries:["Supply Chain Assistant","Logistics Analyst (Entry)"]},
+      {title:"Registered Nurse (New Grad)", desc:"Care for patients with a team.", traits:{S:0.9,C:0.4}, eduMin:"assoc", majors:["nursing","bsn"], salaryUSD:78000, queries:["Registered Nurse","New Grad RN","Entry Level RN"]},
+      {title:"Elementary Teacher (Entry)", desc:"Teach and support young students.", traits:{S:0.8,A:0.3,C:0.4}, eduMin:"bachelor", majors:["education","teaching"], salaryUSD:58000, queries:["Elementary School Teacher","Teacher","Substitute Teacher"]},
+      {title:"Electrician Apprentice", desc:"Install and fix electrical systems.", traits:{R:0.9,C:0.4}, eduMin:"hs", majors:["apprentice","electrical"], salaryUSD:48000, queries:["Electrician Apprentice","Electrical Apprentice","Trainee Electrician"]},
+      {title:"HVAC Technician (Entry)", desc:"Install and service heating and cooling.", traits:{R:0.9,C:0.3}, eduMin:"hs", majors:["hvac","refrigeration"], salaryUSD:52000, queries:["HVAC Technician","HVAC Installer","HVAC Apprentice"]},
+      {title:"Junior Graphic Designer", desc:"Make graphics for print or web.", traits:{A:0.9}, eduMin:"somecollege", majors:["design","graphic","art"], salaryUSD:50000, queries:["Junior Graphic Designer","Graphic Designer","Production Artist"]},
+      {title:"Lab Technician (Entry)", desc:"Run tests and record results in labs.", traits:{I:0.7,C:0.6}, eduMin:"assoc", majors:["biology","chemistry","lab","biomedical"], salaryUSD:50000, queries:["Lab Technician","Laboratory Technician","Specimen Processor"]}
+    ];
+
+    const EDU_RANK = {hs:0, somecollege:0.3, cert:0.2, assoc:0.4, bachelor:0.6, master:0.8, phd:1};
+
+    // -------------------- QUIZ ENGINE --------------------
+    const qText = document.getElementById('q-text');
+    const qOpts = document.getElementById('q-opts');
+    const qCounter = document.getElementById('q-counter');
+    const bar = document.getElementById('bar');
+    const backBtn = document.getElementById('backBtn');
+    const nextBtn = document.getElementById('nextBtn');
+
+    let idx = 0;
+    const answers = new Array(TOTAL).fill(null);
+
+    function renderQuestion(){
+      const q = QUESTIONS[idx];
+      qText.textContent = q.t;
+      qCounter.textContent = `Question ${idx+1} of ${TOTAL}`;
+      qOpts.innerHTML = '';
+      q.o.forEach((opt, i) => {
+        const b = document.createElement('button');
+        b.className = 'opt';
+        b.type = 'button';
+        b.textContent = opt.label;
+        b.addEventListener('click', () => selectOption(i));
+        if (answers[idx] === i) b.classList.add('selected');
+        qOpts.appendChild(b);
+      });
+      backBtn.disabled = idx === 0;
+      nextBtn.disabled = answers[idx] === null;
+      bar.style.width = ((idx)/TOTAL)*100 + '%';
+    }
+
+    function selectOption(i){
+      answers[idx] = i;
+      document.querySelectorAll('#q-opts .opt').forEach((el, j)=>{
+        el.classList.toggle('selected', j === i);
+      });
+      nextBtn.disabled = false;
+    }
+
+    function goNext(){
+      if (idx < TOTAL-1){
+        idx++;
+        renderQuestion();
+      } else {
+        bar.style.width = '100%';
+        document.getElementById('stage-questions').style.display='none';
+        document.getElementById('stage-profile').style.display='block';
+      }
+    }
+
+    function goBack(){
+      if (idx>0){
+        idx--;
+        renderQuestion();
+      }
+    }
+
+    backBtn.addEventListener('click', goBack);
+    nextBtn.addEventListener('click', goNext);
+
+    // -------------------- MATCHING ENGINE --------------------
+    function recomputeTraitScores(){
+      const scores = {R:0,I:0,A:0,S:0,E:0,C:0};
+      answers.forEach((sel, qIndex)=>{
+        if (sel !== null){
+          const w = QUESTIONS[qIndex].o[sel].w || {};
+          for (const k in w){ scores[k] += w[k]; }
+        }
+      });
+      return scores;
+    }
+
+    function normalizeTraits(t){
+      const vec = ['R','I','A','S','E','C'].map(k=>t[k]||0);
+      const sum = vec.reduce((a,b)=>a+Math.max(0,b),0) || 1;
+      const obj={};
+      ['R','I','A','S','E','C'].forEach((k, i)=> obj[k]= Math.max(0, vec[i])/sum );
+      return obj;
+    }
+
+    function cosine(a,b){
+      const ks = ['R','I','A','S','E','C'];
+      let dot=0, a2=0, b2=0; ks.forEach(k=>{ const x=a[k]||0, y=b[k]||0; dot+=x*y; a2+=x*x; b2+=y*y; });
+      return (a2&&b2)? dot/(Math.sqrt(a2)*Math.sqrt(b2)) : 0;
+    }
+
+    function degreeBonus(major, role){
+      if(!major) return 0;
+      const m = major.toLowerCase();
+      return (role.majors||[]).some(tok=> m.includes(tok)) ? 0.07 : 0;
+    }
+
+    function eduPenalty(userEdu, roleEdu){
+      return EDU_RANK[userEdu] >= EDU_RANK[roleEdu] ? 0 : -0.08;
+    }
+
+    function rankRoles(user){
+      const traitScores = recomputeTraitScores();
+      const uTraits = normalizeTraits(traitScores);
+      return ROLES.map(role=>{
+        const sim = cosine(uTraits, role.traits);
+        let score = 0.85*sim + degreeBonus(user.major, role);
+        score += eduPenalty(user.edu, role.eduMin);
+        if((role.traits.C||0)+(role.traits.I||0) > 1.2){ score += Math.min(0.06, (parseInt(user.years||'0',10)||0)*0.015); }
+        return {role, score: Math.max(0, Math.min(1, score))};
+      }).sort((a,b)=> b.score - a.score);
+    }
+
+    // Robust job links with entry‑level bias for ≤1 yr exp
+    function buildSearchLink(engine, role, user){
+      const place = user.relocate ? 'remote' : (user.loc || 'remote');
+      const years = parseInt(user.years||'0',10)||0;
+      const entryMode = years <= 1; // newcomers bias
+      const baseTitle = role.title.replace(/^Entry\-Level\s+/i,'').replace(/\s*\(Entry\)/i,'');
+      const entryQuery = entryMode ? ' (entry level OR junior OR assistant OR trainee OR "new grad")' : '';
+      const qGoogle   = encodeURIComponent(`${baseTitle} jobs${entryQuery} ${place}`);
+      const qLinkedIn = encodeURIComponent(`${baseTitle}${entryMode ? ' entry level' : ''}`);
+      const qIndeed   = encodeURIComponent(`${baseTitle}${entryMode ? ' entry level' : ''}`);
+      if (engine==='google')  return `https://www.google.com/search?q=${qGoogle}`;
+      if (engine==='linkedin')return `https://www.linkedin.com/jobs/search/?keywords=${qLinkedIn}&location=${encodeURIComponent(place)}`;
+      if (engine==='indeed')  return `https://www.indeed.com/jobs?q=${qIndeed}&l=${encodeURIComponent(place)}`;
+      return '#';
+    }
+
+    function renderResults(user, ranked){
+      const list = document.getElementById('roleList');
+      list.innerHTML='';
+      ranked.slice(0,8).forEach(({role, score})=>{
+        const card = document.createElement('div');
+        card.className='role';
+        const pct = Math.round(score*100);
+        card.innerHTML = `
+          <h3>${role.title} <span class="pill">Match ${pct}%</span></h3>
+          <div class="why">${role.desc}</div>
+          <div class="mini" style="margin:6px 0 8px;">${role.salaryUSD ? `$${Math.round(role.salaryUSD/1000)}k median (US)` : ''}</div>
+          <div class="opts">
+            <a class="btn" target="_blank" rel="noopener" href="${buildSearchLink('google', role, user)}">Google Search</a>
+            <a class="btn" target="_blank" rel="noopener" href="${buildSearchLink('linkedin', role, user)}">LinkedIn</a>
+            <a class="btn" target="_blank" rel="noopener" href="${buildSearchLink('indeed', role, user)}">Indeed</a>
+          </div>
+        `;
+        list.appendChild(card);
+      });
+      document.getElementById('stage-profile').style.display='none';
+      document.getElementById('stage-results').style.display='block';
+      window.scrollTo({ top: document.getElementById('stage-results').offsetTop - 8, behavior:'smooth' });
+    }
+
+    // -------------------- PROFILE EVENTS --------------------
+    document.getElementById('backToQuiz').addEventListener('click', ()=>{
+      document.getElementById('stage-profile').style.display='none';
+      document.getElementById('stage-questions').style.display='block';
+    });
+
+    document.getElementById('seeMatches').addEventListener('click', ()=>{
+      const user = {
+        loc: (document.getElementById('loc').value||'').trim(),
+        relocate: document.getElementById('relocate').checked,
+        edu: document.getElementById('edu').value,
+        major: document.getElementById('major').value,
+        years: document.getElementById('years').value
+      };
+      const ranked = rankRoles(user);
+      renderResults(user, ranked);
+    });
+
+    document.getElementById('restart').addEventListener('click', ()=>{ location.reload(); });
+
+    // boot
+    renderQuestion();
+  </script>
+</body>
+</html>

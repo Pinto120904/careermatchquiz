@@ -853,5 +853,62 @@
     // boot
     renderQuestion();
   </script>
+  <script>
+// ---- Safety Bootloader: puts errors on the page & boots the quiz in the right order ----
+
+// 1) Show any JS error on the page so you can see what broke
+(function attachGlobalErrorBanner(){
+  const banner = document.createElement('div');
+  banner.id = 'js-error-banner';
+  banner.style.cssText = 'display:none;position:fixed;left:0;right:0;bottom:0;background:#7f1d1d;color:#fff;padding:10px 14px;font:14px system-ui;z-index:9999';
+  document.body.appendChild(banner);
+
+  function showError(msg){
+    banner.textContent = 'Script error: ' + msg;
+    banner.style.display = 'block';
+  }
+  window.addEventListener('error', (e)=> showError(e.message || String(e)));
+  window.addEventListener('unhandledrejection', (e)=> showError('Promise: ' + (e.reason?.message || String(e.reason))));
+})();
+
+// 2) Boot only after DOM is ready AND all data blocks exist
+document.addEventListener('DOMContentLoaded', () => {
+  try {
+    // Sanity checks
+    if (!Array.isArray(window.QUESTIONS) || !window.QUESTIONS.length) {
+      throw new Error('QUESTIONS is missing or empty. Make sure the QUESTIONS array is defined above this script.');
+    }
+    if (typeof window.TOTAL !== 'number') {
+      // Auto-repair if TOTAL wasn't set
+      window.TOTAL = window.QUESTIONS.length;
+    }
+    if (!Array.isArray(window.ROLES)) {
+      throw new Error('ROLES array is missing. Ensure const ROLES = [ ... ] is defined before any ROLES.push(...) calls.');
+    }
+
+    // Log counts so you can verify quickly in DevTools
+    console.log('QUESTIONS length =', window.QUESTIONS.length);
+    console.log('ROLES length =', window.ROLES.length);
+
+    // 3) Finally render the first question
+    if (typeof window.renderQuestion === 'function') {
+      window.renderQuestion();
+    } else {
+      throw new Error('renderQuestion() is not defined yet. Ensure the quiz engine script block loads before this bootloader.');
+    }
+  } catch (err) {
+    // Also show inline to users instead of hanging on "Loading first question…"
+    const q = document.getElementById('q-text');
+    if (q) q.textContent = 'There was a script error. Open the console for details.';
+    const banner = document.getElementById('js-error-banner');
+    if (banner) {
+      banner.textContent = 'Script error: ' + (err && err.message ? err.message : String(err));
+      banner.style.display = 'block';
+    }
+    console.error(err);
+  }
+});
+</script>
+
 </body>
 </html>

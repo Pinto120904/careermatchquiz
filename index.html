@@ -370,6 +370,317 @@
       {title:"Lab Technician (Entry)", desc:"Run tests and record results in labs.", traits:{I:0.7,C:0.6}, eduMin:"assoc", majors:["biology","chemistry","lab","biomedical"], salaryUSD:50000, queries:["Lab Technician","Laboratory Technician","Specimen Processor"]}
     ];
 
+    <script>
+// --- EXTRA CAREER BUCKETS START ---
+ROLES.push(
+  // TECH & DATA
+  {title:"Junior Software Developer", desc:"Build features with guidance from senior devs.", traits:{I:0.6,R:0.2,C:0.3}, eduMin:"somecollege", majors:["computer","software","cs","programming"], salaryUSD:70000, queries:["Junior Software Developer","Entry Level Software Engineer","Junior Web Developer"]},
+  {title:"QA Tester (Entry)", desc:"Test apps and document bugs.", traits:{C:0.6,I:0.4}, eduMin:"hs", majors:["information","computer","software"], salaryUSD:48000, queries:["QA Tester Entry Level","Software Tester","Quality Assurance Analyst Junior"]},
+  {title:"Junior Data Engineer", desc:"Move and clean data for analytics.", traits:{I:0.7,C:0.5}, eduMin:"bachelor", majors:["data","computer","information","statistics"], salaryUSD:78000, queries:["Junior Data Engineer","ETL Developer Entry Level"]},
+  {title:"Cybersecurity Analyst (Entry)", desc:"Monitor alerts and investigate incidents.", traits:{I:0.6,C:0.5}, eduMin:"assoc", majors:["cyber","security","information","it"], salaryUSD:65000, queries:["Cybersecurity Analyst Entry Level","SOC Analyst Tier 1"]},
+  {title:"Product Analyst (Entry)", desc:"Analyze product usage and run simple experiments.", traits:{I:0.7,E:0.2,C:0.3}, eduMin:"bachelor", majors:["business","economics","statistics","analytics"], salaryUSD:65000, queries:["Product Analyst Entry Level","Junior Product Analyst"]},
+
+  // BUSINESS, OPS & FINANCE
+  {title:"Junior Financial Analyst", desc:"Build simple models and reports.", traits:{I:0.7,C:0.6}, eduMin:"bachelor", majors:["finance","economics","accounting","business"], salaryUSD:60000, queries:["Junior Financial Analyst","Entry Level Finance Analyst"]},
+  {title:"Accounting Clerk", desc:"Process invoices and reconcile accounts.", traits:{C:0.9}, eduMin:"assoc", majors:["accounting","finance","business"], salaryUSD:44000, queries:["Accounting Clerk","Accounts Payable Clerk","Accounts Receivable Clerk"]},
+  {title:"HR Coordinator", desc:"Support recruiting, onboarding, and HR ops.", traits:{S:0.6,C:0.5}, eduMin:"assoc", majors:["hr","human resources","business"], salaryUSD:47000, queries:["HR Coordinator","Human Resources Assistant"]},
+  {title:"Procurement Assistant", desc:"Help with vendor quotes and purchase orders.", traits:{C:0.7,E:0.3}, eduMin:"assoc", majors:["supply","logistics","business","operations"], salaryUSD:48000, queries:["Procurement Assistant","Purchasing Assistant"]},
+  {title:"Inside Sales Associate", desc:"Qualify leads and book meetings.", traits:{E:0.9,S:0.3}, eduMin:"hs", majors:["business","marketing","communications"], salaryUSD:45000, queries:["Inside Sales Representative","Sales Development Representative"]},
+
+  // OPERATIONS & FIELD
+  {title:"Warehouse Lead (Entry)", desc:"Coordinate picking/packing and safety checks.", traits:{R:0.5,C:0.6}, eduMin:"hs", majors:["operations","logistics"], salaryUSD:42000, queries:["Warehouse Lead Entry Level","Logistics Team Lead"]},
+  {title:"Manufacturing Technician (Entry)", desc:"Operate equipment and follow SOPs.", traits:{R:0.7,C:0.4}, eduMin:"hs", majors:["industrial","manufacturing","mechanical"], salaryUSD:48000, queries:["Manufacturing Technician","Production Technician"]},
+  {title:"Quality Technician (Entry)", desc:"Perform inspections and record data.", traits:{C:0.7,R:0.4}, eduMin:"hs", majors:["industrial","quality","manufacturing"], salaryUSD:46000, queries:["Quality Technician","QC Technician Entry Level"]},
+  {title:"Field Service Technician (Entry)", desc:"Install and service equipment onsite.", traits:{R:0.8,S:0.3}, eduMin:"hs", majors:["electrical","mechanical","it"], salaryUSD:52000, queries:["Field Service Technician","Installation Technician"]},
+
+  // HEALTHCARE & SOCIAL
+  {title:"Medical Assistant", desc:"Support clinicians and manage basic patient tasks.", traits:{S:0.8,C:0.3}, eduMin:"cert", majors:["medical","health","clinical"], salaryUSD:42000, queries:["Medical Assistant","CMA Entry Level"]},
+  {title:"Pharmacy Technician", desc:"Fill prescriptions and assist customers.", traits:{C:0.6,S:0.4}, eduMin:"hs", majors:["pharmacy","health"], salaryUSD:42000, queries:["Pharmacy Technician","Pharm Tech Trainee"]},
+  {title:"Behavioral Health Tech", desc:"Support patients under clinician supervision.", traits:{S:0.9,C:0.3}, eduMin:"hs", majors:["psychology","health"], salaryUSD:41000, queries:["Behavioral Health Technician","Mental Health Technician"]},
+  {title:"Dental Assistant", desc:"Chairside assisting, x-rays, and patient care.", traits:{S:0.7,C:0.4}, eduMin:"cert", majors:["dental","health"], salaryUSD:46000, queries:["Dental Assistant","RDA Entry Level"]},
+
+  // CREATIVE & CONTENT
+  {title:"Content Creator / Copywriter (Jr)", desc:"Write posts, emails, and short ads.", traits:{A:0.7,E:0.3}, eduMin:"somecollege", majors:["communications","marketing","journalism","english"], salaryUSD:45000, queries:["Junior Copywriter","Content Writer Entry Level"]},
+  {title:"Social Media Coordinator", desc:"Plan posts and track engagement.", traits:{A:0.6,E:0.4,C:0.3}, eduMin:"somecollege", majors:["marketing","communications","journalism"], salaryUSD:44000, queries:["Social Media Coordinator","Digital Marketing Coordinator"]},
+  {title:"Video Editor (Jr)", desc:"Edit short-form video for campaigns.", traits:{A:0.9}, eduMin:"somecollege", majors:["film","media","design"], salaryUSD:48000, queries:["Junior Video Editor","Assistant Video Editor"]},
+
+  // PUBLIC SECTOR & NONPROFIT
+  {title:"City Admin Assistant", desc:"Clerical support for city departments.", traits:{C:0.8,S:0.3}, eduMin:"hs", majors:["public","administration","business"], salaryUSD:42000, queries:["Administrative Assistant City","Clerk Entry Level"]},
+  {title:"Nonprofit Program Assistant", desc:"Support events, volunteers, and reporting.", traits:{S:0.7,C:0.4}, eduMin:"hs", majors:["public","nonprofit","communications"], salaryUSD:42000, queries:["Program Assistant Nonprofit","Community Outreach Assistant"]},
+
+  // TRADES & APPRENTICESHIPS
+  {title:"Plumbing Apprentice", desc:"Assist with installs and repairs.", traits:{R:0.9,C:0.3}, eduMin:"hs", majors:["apprentice","plumbing"], salaryUSD:47000, queries:["Plumber Apprentice","Plumbing Helper"]},
+  {title:"Carpenter Apprentice", desc:"Learn framing and finish carpentry.", traits:{R:0.9}, eduMin:"hs", majors:["apprentice","carpentry","construction"], salaryUSD:45000, queries:["Carpenter Apprentice","Carpenter Helper"]},
+  {title:"Heavy Equipment Operator (Trainee)", desc:"Operate loaders and forklifts safely.", traits:{R:0.9,C:0.3}, eduMin:"hs", majors:["construction","industrial"], salaryUSD:52000, queries:["Heavy Equipment Operator Trainee","Forklift Operator Lead"]},
+
+  // ENVIRONMENT & LAB
+  {title:"Environmental Technician (Entry)", desc:"Collect samples and follow procedures.", traits:{I:0.6,C:0.5,R:0.3}, eduMin:"assoc", majors:["environment","biology","chemistry"], salaryUSD:48000, queries:["Environmental Technician","Field Technician Environmental"]},
+  {title:"Food Safety Technician (Entry)", desc:"Run tests and maintain records.", traits:{C:0.7,I:0.5}, eduMin:"hs", majors:["food","biology","chemistry"], salaryUSD:44000, queries:["Food Safety Technician","QA Tech Food"]},
+
+  // EDUCATION & TRAINING
+  {title:"Paraeducator / Teacher’s Aide", desc:"Support classroom instruction and students.", traits:{S:0.8,C:0.4}, eduMin:"hs", majors:["education","teaching"], salaryUSD:36000, queries:["Paraeducator","Teacher Aide","Instructional Aide"]},
+  {title:"Corporate Trainer (Junior)", desc:"Deliver basic training and track completion.", traits:{S:0.7,E:0.3,C:0.3}, eduMin:"bachelor", majors:["education","communications","business"], salaryUSD:52000, queries:["Training Specialist Entry Level","L&D Coordinator"]},
+
+
+  // TECH & DATA
+  {title:"Business Intelligence Analyst (Entry)", desc:"Build dashboards and answer data questions.", traits:{I:0.7,C:0.5}, eduMin:"bachelor", majors:["analytics","statistics","data","business","information"], salaryUSD:63000, queries:["BI Analyst Entry Level","Junior Business Intelligence Analyst"]},
+  {title:"Cloud Support Associate", desc:"Help customers troubleshoot cloud services.", traits:{I:0.5,R:0.4,S:0.4}, eduMin:"assoc", majors:["information","computer","cloud","it"], salaryUSD:68000, queries:["Cloud Support Associate","Cloud Support Engineer Entry"]},
+  {title:"Network Technician (Entry)", desc:"Install and maintain routers, switches, cabling.", traits:{R:0.6,C:0.4}, eduMin:"assoc", majors:["network","information","computer"], salaryUSD:54000, queries:["Network Technician Entry Level","Junior Network Technician"]},
+  {title:"Salesforce Administrator (Junior)", desc:"Maintain CRM records, fields, and automations.", traits:{C:0.6,I:0.4,S:0.3}, eduMin:"somecollege", majors:["information","business","systems","crm"], salaryUSD:62000, queries:["Junior Salesforce Administrator","Salesforce Admin Entry"]},
+  {title:"Product Operations Analyst (Entry)", desc:"Keep product data, experiments, and feedback organized.", traits:{C:0.7,I:0.5,E:0.3}, eduMin:"bachelor", majors:["business","economics","information","analytics"], salaryUSD:62000, queries:["Product Operations Analyst Entry","Product Ops Analyst Junior"]},
+  {title:"Risk/Fraud Operations Analyst (Entry)", desc:"Review transactions and patterns to prevent fraud.", traits:{I:0.6,C:0.6}, eduMin:"bachelor", majors:["analytics","economics","finance","information"], salaryUSD:60000, queries:["Fraud Analyst Entry Level","Risk Operations Analyst Junior"]},
+  {title:"Compliance Analyst (Entry)", desc:"Monitor policies, controls, and evidence logs.", traits:{C:0.8,I:0.4}, eduMin:"bachelor", majors:["business","law","accounting","information"], salaryUSD:61000, queries:["Compliance Analyst Entry Level","Junior Compliance Analyst"]},
+  {title:"SEO Specialist (Entry)", desc:"Optimize pages for search and track rankings.", traits:{I:0.5,A:0.4,C:0.4}, eduMin:"somecollege", majors:["marketing","communications","information"], salaryUSD:52000, queries:["SEO Specialist Entry Level","Junior SEO Analyst"]},
+  {title:"Email Marketing Specialist (Entry)", desc:"Build campaigns and report on open/click rates.", traits:{A:0.5,C:0.5,E:0.3}, eduMin:"somecollege", majors:["marketing","communications","business"], salaryUSD:52000, queries:["Email Marketing Specialist Entry","Lifecycle Marketing Coordinator"]},
+  {title:"E-commerce Operations Specialist", desc:"Manage listings, inventory sync, and order issues.", traits:{C:0.7,I:0.4}, eduMin:"somecollege", majors:["business","information","marketing"], salaryUSD:50000, queries:["Ecommerce Operations Specialist","Marketplace Operations Coordinator"]},
+
+  // BUSINESS, FINANCE & LEGAL
+  {title:"Revenue Operations Analyst (Entry)", desc:"Unify sales/marketing funnels and dashboards.", traits:{I:0.6,C:0.6,E:0.2}, eduMin:"bachelor", majors:["business","analytics","economics"], salaryUSD:62000, queries:["RevOps Analyst Entry","Revenue Operations Analyst Junior"]},
+  {title:"Credit Analyst (Entry)", desc:"Analyze financials and recommend credit limits.", traits:{I:0.7,C:0.6}, eduMin:"bachelor", majors:["finance","accounting","economics","business"], salaryUSD:60000, queries:["Credit Analyst Entry Level","Junior Credit Analyst"]},
+  {title:"Loan Processor (Entry)", desc:"Collect docs and verify loan application data.", traits:{C:0.8,S:0.3}, eduMin:"somecollege", majors:["finance","business"], salaryUSD:52000, queries:["Loan Processor Entry Level","Mortgage Loan Processor Junior"]},
+  {title:"Underwriting Assistant", desc:"Support underwriters with data and quotes.", traits:{C:0.7,I:0.5}, eduMin:"somecollege", majors:["insurance","finance","business"], salaryUSD:50000, queries:["Underwriting Assistant","Assistant Underwriter Entry"]},
+  {title:"Claims Adjuster Trainee", desc:"Investigate claims and coordinate settlements.", traits:{S:0.5,C:0.6}, eduMin:"somecollege", majors:["insurance","business","criminal"], salaryUSD:52000, queries:["Claims Adjuster Trainee","Entry Level Claims Adjuster"]},
+  {title:"Regulatory Affairs Assistant", desc:"Prepare submissions and track approvals.", traits:{C:0.8,I:0.4}, eduMin:"bachelor", majors:["biology","chemistry","pharma","regulatory"], salaryUSD:56000, queries:["Regulatory Affairs Assistant","RA Assistant Entry"]},
+  {title:"Scrum Master (Junior)", desc:"Facilitate standups and remove blockers.", traits:{C:0.6,S:0.5,E:0.4}, eduMin:"somecollege", majors:["business","information","project"], salaryUSD:65000, queries:["Junior Scrum Master","Scrum Master Entry Level"]},
+
+  // SUPPLY CHAIN, LOGISTICS & TRADE
+  {title:"Inventory Analyst (Entry)", desc:"Forecast and reconcile stock across locations.", traits:{I:0.6,C:0.7}, eduMin:"bachelor", majors:["supply","logistics","industrial","operations","business"], salaryUSD:56000, queries:["Inventory Analyst Entry Level","Junior Inventory Analyst"]},
+  {title:"Freight Broker Trainee", desc:"Match loads and carriers; manage schedules.", traits:{E:0.6,C:0.5}, eduMin:"hs", majors:["logistics","supply","business"], salaryUSD:50000, queries:["Freight Broker Trainee","Logistics Broker Entry"]},
+  {title:"Import/Export Coordinator (Entry)", desc:"Handle documentation and customs scheduling.", traits:{C:0.7,S:0.3}, eduMin:"assoc", majors:["logistics","supply","international","trade"], salaryUSD:52000, queries:["Import Export Coordinator Entry","Logistics Coordinator International"]},
+  {title:"Dispatcher (Transportation)", desc:"Assign routes and communicate with drivers.", traits:{C:0.6,S:0.5}, eduMin:"hs", majors:["logistics","transportation"], salaryUSD:46000, queries:["Transportation Dispatcher","Fleet Dispatcher Entry"]},
+
+  // BUILT ENVIRONMENT & GEO
+  {title:"CAD Drafter (Junior)", desc:"Create technical drawings from engineer notes.", traits:{A:0.4,C:0.6,R:0.5}, eduMin:"assoc", majors:["cad","drafting","mechanical","civil","architect"], salaryUSD:54000, queries:["CAD Drafter Junior","Drafting Technician Entry"]},
+  {title:"Surveying Technician", desc:"Assist field surveys and process measurements.", traits:{R:0.7,C:0.5}, eduMin:"hs", majors:["survey","civil","geomatics"], salaryUSD:50000, queries:["Survey Technician","Land Survey Technician Entry"]},
+  {title:"GIS Technician (Entry)", desc:"Edit spatial data and produce maps.", traits:{I:0.6,C:0.6}, eduMin:"assoc", majors:["gis","geography","planning","environment"], salaryUSD:52000, queries:["GIS Technician Entry Level","Junior GIS Technician"]},
+  {title:"Construction Estimator Assistant", desc:"Collect takeoffs and vendor quotes.", traits:{C:0.7,I:0.4,R:0.3}, eduMin:"assoc", majors:["construction","civil","estimating"], salaryUSD:56000, queries:["Estimator Assistant Construction","Junior Construction Estimator"]},
+
+  // HEALTHCARE & LIFE SCIENCES
+  {title:"Radiology Technologist (New Grad)", desc:"Perform imaging studies under supervision.", traits:{S:0.5,C:0.5}, eduMin:"assoc", majors:["radiology","imaging"], salaryUSD:64000, queries:["Radiologic Technologist New Grad","X-Ray Tech Entry"]},
+  {title:"Respiratory Therapist (New Grad)", desc:"Provide respiratory care and treatments.", traits:{S:0.7,C:0.4}, eduMin:"assoc", majors:["respiratory","health"], salaryUSD:68000, queries:["Respiratory Therapist New Grad","RRT Entry Level"]},
+  {title:"Phlebotomist", desc:"Draw blood samples and ensure proper labeling.", traits:{S:0.6,C:0.4}, eduMin:"cert", majors:["medical","phlebotomy","health"], salaryUSD:38000, queries:["Phlebotomist","Phlebotomy Technician Entry"]},
+  {title:"Health Information Technician", desc:"Manage medical records and coding workflows.", traits:{C:0.8}, eduMin:"assoc", majors:["health information","him","coding"], salaryUSD:50000, queries:["Health Information Technician","Medical Records Technician"]},
+  {title:"Medical Billing & Coding Specialist", desc:"Translate procedures into billing codes.", traits:{C:0.8}, eduMin:"cert", majors:["coding","billing","health information"], salaryUSD:46000, queries:["Medical Billing and Coding Specialist","Coder Entry Level"]},
+  {title:"EMT (Basic)", desc:"Provide emergency care and patient transport.", traits:{S:0.7,R:0.5}, eduMin:"cert", majors:["emt","paramedic","health"], salaryUSD:38000, queries:["EMT Basic","Emergency Medical Technician Entry"]},
+  {title:"Clinical Lab Animal Care Tech", desc:"Care for research animals and keep records.", traits:{S:0.5,C:0.5,R:0.4}, eduMin:"hs", majors:["biology","animal","veterinary"], salaryUSD:42000, queries:["Animal Care Technician Research","Lab Animal Technician Entry"]},
+
+  // ENERGY, ENVIRONMENT & FIELD
+  {title:"Solar Installer (Entry)", desc:"Assemble and mount solar arrays safely.", traits:{R:0.9,C:0.3}, eduMin:"hs", majors:["solar","electrical","renewable"], salaryUSD:52000, queries:["Solar Installer Entry Level","PV Installer Trainee"]},
+  {title:"Wind Turbine Technician (Trainee)", desc:"Assist with maintenance at height.", traits:{R:0.9,C:0.3}, eduMin:"assoc", majors:["wind","mechanical","electrical"], salaryUSD:60000, queries:["Wind Turbine Technician Trainee","Wind Tech Entry"]},
+  {title:"Sustainability Coordinator (Entry)", desc:"Track waste, energy, and ESG projects.", traits:{I:0.5,C:0.6}, eduMin:"bachelor", majors:["sustainability","environment","policy"], salaryUSD:54000, queries:["Sustainability Coordinator Entry Level","ESG Coordinator Junior"]},
+  {title:"Forestry Technician", desc:"Support forest surveys and conservation work.", traits:{R:0.7,I:0.4}, eduMin:"hs", majors:["forestry","environment","biology"], salaryUSD:46000, queries:["Forestry Technician","Forest Technician Entry"]},
+
+  // REAL ESTATE, FACILITIES & SAFETY
+  {title:"Property Management Assistant", desc:"Handle work orders, leasing files, and vendors.", traits:{C:0.6,S:0.4}, eduMin:"hs", majors:["real estate","business"], salaryUSD:46000, queries:["Property Management Assistant","Assistant Property Manager Entry"]},
+  {title:"Home/Building Inspector Trainee", desc:"Shadow inspections and write simple reports.", traits:{R:0.6,C:0.6}, eduMin:"hs", majors:["construction","inspection","real estate"], salaryUSD:52000, queries:["Home Inspector Trainee","Building Inspector Entry"]},
+  {title:"Home Energy Auditor (Entry)", desc:"Perform basic audits and recommend retrofits.", traits:{I:0.5,R:0.5}, eduMin:"somecollege", majors:["energy","construction","environment"], salaryUSD:52000, queries:["Energy Auditor Entry Level","Residential Energy Auditor"]},
+
+  // EDUCATION, GOV & COMMUNITY
+  {title:"Admissions Counselor (Entry)", desc:"Recruit and guide prospective students.", traits:{E:0.6,S:0.6}, eduMin:"bachelor", majors:["education","communications","business"], salaryUSD:47000, queries:["Admissions Counselor Entry","Enrollment Counselor Junior"]},
+  {title:"Financial Aid Counselor (Entry)", desc:"Advise students on aid options and paperwork.", traits:{S:0.7,C:0.6}, eduMin:"bachelor", majors:["education","business","finance"], salaryUSD:47000, queries:["Financial Aid Counselor Entry Level","Financial Aid Advisor Junior"]},
+  {title:"Case Management Aide", desc:"Assist with client intakes and referrals.", traits:{S:0.8,C:0.4}, eduMin:"hs", majors:["social","psychology","public"], salaryUSD:42000, queries:["Case Management Aide","Case Aide Entry"]},
+  {title:"Housing Specialist (Entry)", desc:"Process applications and coordinate placements.", traits:{S:0.7,C:0.5}, eduMin:"somecollege", majors:["public","social","policy"], salaryUSD:46000, queries:["Housing Specialist Entry Level","Housing Coordinator Junior"]},
+  {title:"Public Safety Telecommunicator (911 Dispatcher)", desc:"Answer emergency calls and dispatch units.", traits:{C:0.6,S:0.5}, eduMin:"hs", majors:["criminal","public","communications"], salaryUSD:46000, queries:["911 Dispatcher","Public Safety Telecommunicator Entry"]},
+
+  // MEDIA, ARTS & EVENTS
+  {title:"Broadcast Production Assistant", desc:"Support live shoots and studio operations.", traits:{A:0.5,R:0.4,C:0.4}, eduMin:"somecollege", majors:["film","media","communications"], salaryUSD:42000, queries:["Production Assistant Broadcast","Studio Production Assistant"]},
+  {title:"Sound Technician (Entry)", desc:"Set up audio gear and run basic mixes.", traits:{R:0.6,A:0.4}, eduMin:"somecollege", majors:["audio","sound","music","media"], salaryUSD:44000, queries:["Sound Technician Entry Level","Audio Technician Junior"]},
+  {title:"Lighting Technician (Entry)", desc:"Rig and operate lighting for events.", traits:{R:0.7,C:0.3}, eduMin:"hs", majors:["theatre","stage","lighting"], salaryUSD:44000, queries:["Lighting Technician Entry","Stage Lighting Tech"]},
+  {title:"Motion Graphics Designer (Jr)", desc:"Animate titles and short explainers.", traits:{A:0.9,I:0.3}, eduMin:"somecollege", majors:["design","motion","animation","media"], salaryUSD:56000, queries:["Junior Motion Designer","Motion Graphics Designer Entry"]},
+  {title:"3D Modeler (Junior)", desc:"Create basic 3D assets for games/visualization.", traits:{A:0.8,I:0.3}, eduMin:"somecollege", majors:["3d","animation","game","design"], salaryUSD:56000, queries:["3D Modeler Junior","3D Artist Entry"]},
+
+
+  // EDUCATION (Texas shortage areas)
+  {title:"Special Education Teacher (EC–12)", desc:"Teach students with disabilities and manage IEPs.", traits:{S:0.9,C:0.5}, eduMin:"bachelor", majors:["education","special","sped","teaching"], salaryUSD:58000, queries:["Special Education Teacher Texas","EC-12 Special Education Teacher","SPED Teacher"]},
+  {title:"Bilingual/ESL Teacher (EC–12)", desc:"Teach English learners; support language development.", traits:{S:0.8,E:0.4}, eduMin:"bachelor", majors:["education","bilingual","esl","tesol"], salaryUSD:60000, queries:["Bilingual Teacher Texas","ESL Teacher Texas","Dual Language Teacher"]},
+  {title:"Career & Technical Education (CTE) Teacher (9–12)", desc:"Teach career pathways like welding, health science, IT.", traits:{S:0.7,R:0.4,C:0.4}, eduMin:"bachelor", majors:["cte","career","technology","welding","health science","it"], salaryUSD:58000, queries:["CTE Teacher Texas","Career and Technical Education Teacher","CTE Health Science Teacher"]},
+  {title:"Computer Science Teacher (Secondary)", desc:"Teach programming and computing fundamentals.", traits:{I:0.6,S:0.5,C:0.4}, eduMin:"bachelor", majors:["computer","cs","technology applications","stem","education"], salaryUSD:62000, queries:["Computer Science Teacher Texas","Technology Applications Teacher"]},
+  {title:"Adjunct Instructor (Community College)", desc:"Teach one or more courses in your subject area.", traits:{S:0.6,I:0.5}, eduMin:"master", majors:["education","english","math","business","it","nursing","science"], salaryUSD:48000, queries:["Adjunct Instructor Texas","Community College Adjunct","Lecturer Part-Time"]},
+  {title:"Clinical Nursing Instructor (Adjunct)", desc:"Supervise nursing students in clinical settings.", traits:{S:0.8,C:0.5}, eduMin:"bachelor", majors:["nursing","bsn","msn"], salaryUSD:78000, queries:["Clinical Nursing Instructor Texas","Adjunct Nursing Instructor","Nursing Clinical Instructor"]},
+
+  // NURSING & ADVANCED PRACTICE
+  {title:"Licensed Vocational Nurse (LVN)", desc:"Provide basic patient care under RN/physician direction.", traits:{S:0.8,C:0.4}, eduMin:"cert", majors:["lvn","lpn","nursing"], salaryUSD:55000, queries:["LVN Texas","Licensed Vocational Nurse Entry","LVN Clinic"]},
+  {title:"Nurse Practitioner (FNP/AGNP)", desc:"Diagnose, treat, and manage patient care.", traits:{S:0.8,I:0.4}, eduMin:"master", majors:["msn","nurse practitioner","fnp","agnp"], salaryUSD:120000, queries:["Nurse Practitioner Texas","Family Nurse Practitioner","Primary Care NP"]},
+  {title:"Physician Assistant (PA-C)", desc:"Examine, diagnose, and treat under physician supervision.", traits:{I:0.6,S:0.7}, eduMin:"master", majors:["physician assistant","pa studies"], salaryUSD:115000, queries:["Physician Assistant Texas","PA-C Primary Care","PA Clinic"]},
+  {title:"Surgical Technologist", desc:"Prepare OR and assist during surgical procedures.", traits:{C:0.6,S:0.5,R:0.4}, eduMin:"assoc", majors:["surgical technology","surg tech"], salaryUSD:58000, queries:["Surgical Technologist Texas","Surg Tech Entry"]},
+  {title:"Diagnostic Medical Sonographer", desc:"Perform ultrasound imaging and support diagnoses.", traits:{I:0.5,S:0.6,C:0.5}, eduMin:"assoc", majors:["sonography","ultrasound","diagnostic medical sonography"], salaryUSD:78000, queries:["Diagnostic Medical Sonographer Texas","Ultrasound Tech"]},
+  {title:"Registered Dental Hygienist", desc:"Provide preventive dental care and patient education.", traits:{S:0.7,C:0.5}, eduMin:"assoc", majors:["dental hygiene","rdh"], salaryUSD:82000, queries:["Dental Hygienist Texas","Registered Dental Hygienist"]},
+  {title:"Physical Therapist Assistant (PTA)", desc:"Deliver therapy plans under PT supervision.", traits:{S:0.8,R:0.4}, eduMin:"assoc", majors:["physical therapy assistant","pta"], salaryUSD:60000, queries:["Physical Therapist Assistant Texas","PTA Entry"]},
+  {title:"Occupational Therapy Assistant (OTA)", desc:"Help patients build daily living and work skills.", traits:{S:0.8,C:0.4}, eduMin:"assoc", majors:["occupational therapy assistant","ota"], salaryUSD:62000, queries:["Occupational Therapy Assistant Texas","OTA Entry"]},
+  {title:"Speech-Language Pathology Assistant (SLPA)", desc:"Support SLPs with therapy activities and notes.", traits:{S:0.8,C:0.5}, eduMin:"assoc", majors:["speech","communication disorders","slpa"], salaryUSD:50000, queries:["SLPA Texas","Speech Language Pathology Assistant"]},
+
+  // ENERGY, CHEMICAL & OIL/GAS (Texas heavy-hitters)
+  {title:"Process Operator (Chemical/Refinery)", desc:"Monitor units, perform rounds, follow SOPs.", traits:{R:0.6,C:0.6}, eduMin:"somecollege", majors:["process technology","chemical","petrochemical"], salaryUSD:75000, queries:["Process Operator Texas","Refinery Operator","Chemical Plant Operator"]},
+  {title:"Instrumentation & Electrical (I&E) Technician", desc:"Maintain instrumentation and control systems.", traits:{R:0.7,C:0.5}, eduMin:"assoc", majors:["instrumentation","electrical","controls"], salaryUSD:72000, queries:["I&E Technician Texas","Instrumentation Technician","Controls Technician"]},
+  {title:"Lease Operator (Pumper)", desc:"Operate wells; inspect, gauge, and maintain sites.", traits:{R:0.7,C:0.4}, eduMin:"hs", majors:["petroleum","oilfield"], salaryUSD:68000, queries:["Lease Operator Texas","Pumper Oil and Gas"]},
+  {title:"Frac Equipment Operator (Entry)", desc:"Run high-pressure pumping and support equipment.", traits:{R:0.9,C:0.3}, eduMin:"hs", majors:["oilfield","frac","pressure pumping"], salaryUSD:65000, queries:["Frac Operator Texas","Frac Equipment Operator Entry"]},
+
+  // INFRASTRUCTURE & TRANSPORTATION
+  {title:"Electrical Power Lineworker (Apprentice)", desc:"Build and maintain overhead/underground lines.", traits:{R:0.9,C:0.4}, eduMin:"hs", majors:["lineworker","electrical","utility"], salaryUSD:74000, queries:["Lineman Apprentice Texas","Lineworker Apprentice","Utility Line Technician"]},
+  {title:"CDL Truck Driver (Regional)", desc:"Haul freight across Texas region with home time.", traits:{R:0.8,C:0.3}, eduMin:"hs", majors:["cdl","transportation","logistics"], salaryUSD:55000, queries:["CDL Driver Texas","Regional Truck Driver","Class A Driver"]},
+
+  // HEALTHCARE ADMIN & SUPPORT (not added before)
+  {title:"Patient Access Representative", desc:"Register patients and verify insurance at check-in.", traits:{S:0.7,C:0.6}, eduMin:"hs", majors:["health","administration","him"], salaryUSD:40000, queries:["Patient Access Representative Texas","Patient Registration"]},
+  {title:"Sterile Processing Technician", desc:"Decontaminate and sterilize instruments.", traits:{C:0.7,R:0.5}, eduMin:"cert", majors:["sterile processing","central service"], salaryUSD:42000, queries:["Sterile Processing Technician Texas","Central Service Tech"]},
+
+  // HIGHER ED & STUDENT SERVICES (Texas campuses)
+  {title:"Academic Advisor (Entry)", desc:"Guide students on degree plans and resources.", traits:{S:0.7,C:0.5}, eduMin:"bachelor", majors:["education","student affairs","psychology","business"], salaryUSD:47000, queries:["Academic Advisor Texas","Undergraduate Advisor","Student Success Advisor"]},
+
+
+  // K-12 EDUCATION & ADMIN
+  {title:"High School Principal (Assistant/Associate)", desc:"Oversee staff, budgets, and academic programs.", traits:{E:0.7,C:0.7,S:0.6}, eduMin:"master", majors:["education","leadership","administration"], salaryUSD:95000, queries:["Assistant Principal Texas","High School Principal Texas","School Administrator Texas"]},
+  {title:"School Secretary", desc:"Manage phones, visitors, and student records.", traits:{C:0.8,S:0.5}, eduMin:"hs", majors:["administration","secretarial","office"], salaryUSD:38000, queries:["School Secretary Texas","Campus Secretary","Administrative Assistant School"]},
+  {title:"School Counselor (EC–12)", desc:"Provide academic and personal guidance to students.", traits:{S:0.9,C:0.6}, eduMin:"master", majors:["counseling","education","psychology"], salaryUSD:58000, queries:["School Counselor Texas","Guidance Counselor","Academic Counselor EC-12"]},
+  {title:"Instructional Coach (Teacher Coach)", desc:"Support teachers with curriculum, training, and coaching.", traits:{S:0.8,C:0.7,E:0.4}, eduMin:"master", majors:["education","curriculum","instruction"], salaryUSD:60000, queries:["Instructional Coach Texas","Teacher Coach","Instructional Specialist"]},
+  {title:"Athletic Coach (HS/College)", desc:"Lead sports teams, training, and student-athlete development.", traits:{E:0.7,S:0.7,R:0.4}, eduMin:"bachelor", majors:["kinesiology","education","sports science"], salaryUSD:50000, queries:["Athletic Coach Texas","High School Football Coach","Assistant Coach College"]},
+  {title:"Athletic Director (School/College)", desc:"Manage athletics programs, coaches, and compliance.", traits:{E:0.8,C:0.7,S:0.6}, eduMin:"master", majors:["education","kinesiology","sports management"], salaryUSD:85000, queries:["Athletic Director Texas","High School Athletic Director","College Athletics Director"]},
+  {title:"Substitute Teacher (EC–12)", desc:"Cover classes on short notice.", traits:{S:0.7,C:0.5}, eduMin:"bachelor", majors:["education","teaching"], salaryUSD:35000, queries:["Substitute Teacher Texas","Substitute EC-12"]},
+
+  // HIGHER EDUCATION & SUPPORT
+  {title:"University Professor (Assistant)", desc:"Teach courses and publish research in your field.", traits:{I:0.7,S:0.5}, eduMin:"phd", majors:["education","stem","business","arts","humanities"], salaryUSD:78000, queries:["Assistant Professor Texas","Professor Entry Level","University Lecturer Texas"]},
+  {title:"Academic Department Chair", desc:"Lead faculty, programs, and budgets.", traits:{E:0.7,C:0.8,S:0.6}, eduMin:"phd", majors:["education","administration","leadership"], salaryUSD:95000, queries:["Department Chair Texas","Academic Chair","Program Director University"]},
+  {title:"Registrar Assistant", desc:"Maintain student enrollment and transcripts.", traits:{C:0.8,S:0.5}, eduMin:"assoc", majors:["administration","student services"], salaryUSD:42000, queries:["Registrar Assistant Texas","Records Clerk University","Student Records Specialist"]},
+
+  // ENTREPRENEURSHIP & SMALL BUSINESS
+  {title:"Small Business Owner / Entrepreneur", desc:"Start and manage your own venture.", traits:{E:0.8,S:0.6,I:0.5}, eduMin:"hs", majors:["business","entrepreneurship"], salaryUSD:70000, queries:["Entrepreneur Texas","Small Business Owner","Startup Founder Texas"]},
+  {title:"Franchise Manager (Entry)", desc:"Run operations for a local franchise location.", traits:{E:0.7,C:0.6,S:0.5}, eduMin:"assoc", majors:["business","management","entrepreneurship"], salaryUSD:60000, queries:["Franchise Manager Texas","Franchise Owner Operator"]},
+  {title:"Startup Operations Associate", desc:"Wear multiple hats in a growing company.", traits:{E:0.6,C:0.6,I:0.5}, eduMin:"bachelor", majors:["business","entrepreneurship","operations"], salaryUSD:52000, queries:["Startup Operations Associate","Business Operations Associate"]},
+  {title:"Nonprofit Program Coordinator", desc:"Launch and manage nonprofit community programs.", traits:{S:0.8,E:0.6,C:0.5}, eduMin:"bachelor", majors:["public","administration","nonprofit"], salaryUSD:47000, queries:["Program Coordinator Nonprofit Texas","Community Outreach Coordinator"]},
+
+  // STUDENT LIFE & CAMPUS SERVICES
+  {title:"Student Activities Coordinator", desc:"Plan events and clubs for student life.", traits:{E:0.7,S:0.7}, eduMin:"bachelor", majors:["education","student affairs","communications"], salaryUSD:46000, queries:["Student Activities Coordinator Texas","Campus Life Coordinator"]},
+  {title:"Librarian (School/College)", desc:"Support student research and manage collections.", traits:{I:0.6,S:0.5,C:0.6}, eduMin:"master", majors:["library","information science","education"], salaryUSD:58000, queries:["School Librarian Texas","University Librarian"]},
+
+  // SUPPORT STAFF
+  {title:"Teacher’s Aide / Instructional Assistant", desc:"Assist teachers with small groups and classroom tasks.", traits:{S:0.8,C:0.5}, eduMin:"hs", majors:["education","teaching"], salaryUSD:32000, queries:["Instructional Aide Texas","Teacher Aide EC-12"]},
+  {title:"Campus Security Officer", desc:"Maintain safety on campus grounds.", traits:{R:0.7,C:0.5}, eduMin:"hs", majors:["criminal justice","security"], salaryUSD:38000, queries:["Campus Security Officer Texas","School Security Guard"]},
+  {title:"Custodial Supervisor (School)", desc:"Oversee custodial staff and facilities cleanliness.", traits:{C:0.7,R:0.6}, eduMin:"hs", majors:["maintenance","facilities"], salaryUSD:40000, queries:["School Custodian Supervisor Texas","Custodial Foreman Education"]},
+
+
+  // K-12 & HIGHER-ED (more roles, no repeats)
+  {title:"Middle School Math Teacher", desc:"Teach grades 6–8 math standards and support learners.", traits:{S:0.8,C:0.6}, eduMin:"bachelor", majors:["education","mathematics","stem"], salaryUSD:59000, queries:["Middle School Math Teacher Texas","Math Teacher 6-8 Texas"]},
+  {title:"High School Biology Teacher", desc:"Teach biology, labs, and STAAR-aligned curriculum.", traits:{S:0.8,I:0.4,C:0.5}, eduMin:"bachelor", majors:["biology","life science","education"], salaryUSD:60000, queries:["High School Biology Teacher Texas","Biology Teacher 9-12 Texas"]},
+  {title:"High School Chemistry Teacher", desc:"Lead chemistry labs and safety procedures.", traits:{S:0.8,I:0.5,C:0.5}, eduMin:"bachelor", majors:["chemistry","science education"], salaryUSD:61000, queries:["High School Chemistry Teacher Texas","Chemistry Teacher 9-12 Texas"]},
+  {title:"Elementary Reading Interventionist", desc:"Target reading gaps using structured literacy.", traits:{S:0.9,C:0.6}, eduMin:"bachelor", majors:["education","reading","literacy"], salaryUSD:57000, queries:["Reading Interventionist Texas","Literacy Intervention Teacher Texas"]},
+  {title:"Physical Education Teacher (EC–12)", desc:"Teach PE and promote student fitness.", traits:{S:0.8,R:0.5}, eduMin:"bachelor", majors:["kinesiology","education"], salaryUSD:56000, queries:["PE Teacher Texas","Physical Education Teacher EC-12 Texas"]},
+  {title:"Dean of Students (K–12)", desc:"Oversee student culture, attendance, and supports.", traits:{E:0.7,S:0.7,C:0.6}, eduMin:"master", majors:["education","leadership"], salaryUSD:72000, queries:["Dean of Students Texas","Student Dean K-12 Texas"]},
+  {title:"Dean of Instruction (K–12)", desc:"Coach teachers and drive curriculum outcomes.", traits:{S:0.8,C:0.7,E:0.5}, eduMin:"master", majors:["education","curriculum","instruction"], salaryUSD:78000, queries:["Dean of Instruction Texas","Instructional Dean K-12 Texas"]},
+  {title:"School Registrar (K–12)", desc:"Manage student records, enrollments, and PEIMS tasks.", traits:{C:0.9,S:0.4}, eduMin:"assoc", majors:["administration","education"], salaryUSD:43000, queries:["School Registrar Texas","Campus Registrar Texas"]},
+  {title:"Attendance Clerk", desc:"Track daily attendance and truancy notices.", traits:{C:0.8,S:0.4}, eduMin:"hs", majors:["administration","office"], salaryUSD:36000, queries:["Attendance Clerk Texas","School Attendance Office Texas"]},
+  {title:"School Bookkeeper", desc:"Handle campus purchasing, activity funds, and reports.", traits:{C:0.9}, eduMin:"assoc", majors:["accounting","bookkeeping"], salaryUSD:42000, queries:["School Bookkeeper Texas","Campus Bookkeeper Texas"]},
+  {title:"School Nurse (RN)", desc:"Provide student health services and care plans.", traits:{S:0.9,C:0.6}, eduMin:"assoc", majors:["nursing","rn","bsn"], salaryUSD:69000, queries:["School Nurse RN Texas","Campus Nurse Texas"]},
+  {title:"Instructional Designer (Higher Ed)", desc:"Design online/hybrid courses and learning assets.", traits:{I:0.5,A:0.5,C:0.6}, eduMin:"master", majors:["instructional design","education","learning technologies"], salaryUSD:70000, queries:["Instructional Designer University Texas","LMS Instructional Designer Texas"]},
+  {title:"Academic Success Coach (College)", desc:"Coach students on study skills and persistence.", traits:{S:0.8,C:0.5}, eduMin:"bachelor", majors:["education","student affairs","psychology"], salaryUSD:47000, queries:["Academic Success Coach Texas","Student Success Coach College Texas"]},
+  {title:"Testing Coordinator (K–12)", desc:"Manage STAAR/PSAT/SAT logistics and compliance.", traits:{C:0.9,S:0.4}, eduMin:"bachelor", majors:["education","assessment"], salaryUSD:56000, queries:["Testing Coordinator Texas","Campus Testing Coordinator Texas"]},
+
+  // COACHING & STUDENT ACTIVITIES (distinct from earlier)
+  {title:"Strength & Conditioning Coach (School)", desc:"Plan workouts and injury-prevention programs.", traits:{R:0.6,S:0.7}, eduMin:"bachelor", majors:["kinesiology","sports science"], salaryUSD:52000, queries:["Strength and Conditioning Coach High School Texas","S&C Coach School Texas"]},
+  {title:"Fine Arts Director (K–12)", desc:"Oversee band, choir, theater, and arts programs.", traits:{A:0.6,E:0.6,C:0.6}, eduMin:"master", majors:["education","fine arts"], salaryUSD:84000, queries:["Fine Arts Director Texas","Director of Fine Arts School Texas"]},
+
+  // NURSING & HEALTHCARE (new niches)
+  {title:"School-Based Speech-Language Pathologist (SLP)", desc:"Provide therapy and manage caseloads in schools.", traits:{S:0.9,C:0.6}, eduMin:"master", majors:["speech","communication disorders"], salaryUSD:82000, queries:["SLP School Texas","Speech Language Pathologist School Texas"]},
+  {title:"Infection Preventionist (RN/Clinical)", desc:"Lead infection control programs in hospitals.", traits:{I:0.5,C:0.8,S:0.5}, eduMin:"bachelor", majors:["nursing","public health","epidemiology"], salaryUSD:92000, queries:["Infection Preventionist Texas","Infection Control RN Texas"]},
+  {title:"Wound Care Nurse (RN)", desc:"Manage wound care protocols and education.", traits:{S:0.8,C:0.6}, eduMin:"assoc", majors:["nursing","rn"], salaryUSD:88000, queries:["Wound Care Nurse Texas","RN Wound Care Texas"]},
+  {title:"Cath Lab Technologist", desc:"Assist interventional cardiology imaging procedures.", traits:{C:0.6,I:0.5}, eduMin:"assoc", majors:["cardiovascular technology","imaging"], salaryUSD:82000, queries:["Cath Lab Technologist Texas","Cardiovascular Tech Texas"]},
+  {title:"Clinical Research Coordinator (CRC)", desc:"Coordinate trials, IRB docs, and data quality.", traits:{C:0.7,I:0.6}, eduMin:"bachelor", majors:["nursing","biology","health"], salaryUSD:65000, queries:["Clinical Research Coordinator Texas","CRC Texas"]},
+  {title:"Public Health Epidemiology Analyst", desc:"Analyze surveillance data for outbreaks.", traits:{I:0.7,C:0.6}, eduMin:"master", majors:["public health","epidemiology","biostatistics"], salaryUSD:74000, queries:["Epidemiology Analyst Texas","Public Health Analyst Texas"]},
+
+  // CHILDCARE & EARLY LEARNING
+  {title:"Early Childhood Teacher (Pre-K)", desc:"Develop early literacy and social skills.", traits:{S:0.9,C:0.6}, eduMin:"bachelor", majors:["early childhood","education"], salaryUSD:47000, queries:["Pre-K Teacher Texas","Early Childhood Teacher Texas"]},
+  {title:"Childcare Center Director", desc:"Run daily operations, licensing, and staffing.", traits:{E:0.7,C:0.8,S:0.6}, eduMin:"bachelor", majors:["early childhood","management"], salaryUSD:56000, queries:["Childcare Director Texas","Daycare Director Texas"]},
+
+  // ENTREPRENEURSHIP (new flavors)
+  {title:"E-commerce Store Owner", desc:"Launch a DTC store and manage fulfillment.", traits:{E:0.7,I:0.4,C:0.5}, eduMin:"hs", majors:["business","entrepreneurship","marketing"], salaryUSD:65000, queries:["Ecommerce Store Owner Texas","Shopify Store Owner Texas"]},
+  {title:"Home Services Business Owner", desc:"Start a local service: cleaning, lawn, handyman.", traits:{E:0.7,R:0.6,C:0.5}, eduMin:"hs", majors:["business","trade"], salaryUSD:62000, queries:["Home Services Business Owner Texas","Small Business Owner Services Texas"]},
+  {title:"Food Truck Operator", desc:"Create menu, manage prep, route, and service.", traits:{E:0.7,C:0.5,A:0.4}, eduMin:"hs", majors:["culinary","business"], salaryUSD:56000, queries:["Food Truck Owner Texas","Food Truck Operator Texas"]},
+  {title:"Fitness Studio Owner/Coach", desc:"Run classes, memberships, and community.", traits:{E:0.7,S:0.6,R:0.5}, eduMin:"hs", majors:["kinesiology","business"], salaryUSD:60000, queries:["Gym Owner Texas","Fitness Coach Owner Texas"]},
+
+  // INFORMATION TECH (more roles)
+  {title:"IT Asset Manager (Entry)", desc:"Track hardware/software lifecycle and audits.", traits:{C:0.8,I:0.4}, eduMin:"assoc", majors:["information","it","systems"], salaryUSD:56000, queries:["IT Asset Manager Entry Texas","ITAM Coordinator Texas"]},
+  {title:"ServiceNow Administrator (Junior)", desc:"Configure forms, flows, and user access.", traits:{C:0.7,I:0.5}, eduMin:"somecollege", majors:["information","it","servicenow"], salaryUSD:64000, queries:["Junior ServiceNow Administrator Texas","ServiceNow Admin Entry Texas"]},
+  {title:"Mobile App Developer (Junior)", desc:"Build iOS/Android features with guidance.", traits:{I:0.6,A:0.4}, eduMin:"somecollege", majors:["computer","software","mobile"], salaryUSD:72000, queries:["Junior Mobile Developer Texas","Android iOS Developer Entry Texas"]},
+  {title:"Data Governance Analyst (Entry)", desc:"Catalog data, lineage, and quality rules.", traits:{C:0.8,I:0.6}, eduMin:"bachelor", majors:["information","data","analytics"], salaryUSD:65000, queries:["Data Governance Analyst Entry Texas","Data Steward Junior Texas"]},
+  {title:"DevOps Engineer (Junior)", desc:"Support CI/CD and environment automation.", traits:{I:0.6,R:0.4,C:0.5}, eduMin:"bachelor", majors:["computer","software","devops"], salaryUSD:80000, queries:["Junior DevOps Engineer Texas","DevOps Entry Level Texas"]},
+  {title:"Tableau Developer (Junior)", desc:"Publish and maintain dashboards and data sources.", traits:{I:0.7,C:0.5}, eduMin:"bachelor", majors:["analytics","information","data"], salaryUSD:68000, queries:["Junior Tableau Developer Texas","BI Developer Entry Texas"]},
+
+  // CYBER & RISK (fresh)
+  {title:"GRC Analyst (Entry)", desc:"Support governance, risk, and compliance tasks.", traits:{C:0.8,I:0.6}, eduMin:"bachelor", majors:["information","security","business"], salaryUSD:66000, queries:["GRC Analyst Entry Level Texas","Governance Risk Compliance Analyst Junior Texas"]},
+  {title:"Digital Forensics Technician (Entry)", desc:"Acquire/analyze digital evidence per chain of custody.", traits:{I:0.7,C:0.7}, eduMin:"bachelor", majors:["cyber","forensics","criminal justice"], salaryUSD:64000, queries:["Digital Forensics Technician Texas","Computer Forensics Entry Texas"]},
+
+  // ACCOUNTING & FINANCE (new functions)
+  {title:"Tax Associate (Entry)", desc:"Prepare individual/small business returns.", traits:{C:0.9,I:0.5}, eduMin:"bachelor", majors:["accounting","tax"], salaryUSD:58000, queries:["Tax Associate Entry Texas","Junior Tax Accountant Texas"]},
+  {title:"Cost Accountant (Junior)", desc:"Track costs, variances, and inventory impacts.", traits:{C:0.9,I:0.5}, eduMin:"bachelor", majors:["accounting","finance","industrial"], salaryUSD:62000, queries:["Cost Accountant Junior Texas","Manufacturing Cost Accountant Entry Texas"]},
+  {title:"Treasury Analyst (Entry)", desc:"Manage cash positioning and bank portals.", traits:{C:0.8,I:0.5}, eduMin:"bachelor", majors:["finance","accounting"], salaryUSD:62000, queries:["Treasury Analyst Entry Texas","Cash Management Analyst Texas"]},
+
+  // SUPPLY CHAIN & MANUFACTURING (distinct roles)
+  {title:"Materials Planner (Entry)", desc:"Plan raw materials and component supply.", traits:{C:0.8,I:0.5}, eduMin:"bachelor", majors:["supply","industrial","operations"], salaryUSD:59000, queries:["Materials Planner Entry Texas","Production Planner Junior Texas"]},
+  {title:"Maintenance Planner/Scheduler", desc:"Prioritize work orders and PM schedules.", traits:{C:0.8,R:0.5}, eduMin:"assoc", majors:["industrial","maintenance","mechanical"], salaryUSD:62000, queries:["Maintenance Planner Texas","Maintenance Scheduler Texas"]},
+  {title:"Industrial Engineering Technician", desc:"Time studies, layouts, and process improvements.", traits:{I:0.6,R:0.5,C:0.6}, eduMin:"assoc", majors:["industrial","manufacturing"], salaryUSD:58000, queries:["Industrial Engineering Technician Texas","IE Tech Entry Texas"]},
+  {title:"CNC Machinist (Entry)", desc:"Operate CNC mills/lathes to specs.", traits:{R:0.9,C:0.4}, eduMin:"hs", majors:["machining","manufacturing"], salaryUSD:52000, queries:["CNC Machinist Entry Texas","CNC Operator Trainee Texas"]},
+
+  // ENERGY, UTILITIES & TRANSPORT (more)
+  {title:"Substation Technician (Apprentice)", desc:"Assist with substations and protective devices.", traits:{R:0.9,C:0.5}, eduMin:"hs", majors:["electrical","utility"], salaryUSD:72000, queries:["Substation Technician Apprentice Texas","Substation Tech Entry Texas"]},
+  {title:"Pipeline Integrity Technician", desc:"Perform inspections and corrosion monitoring.", traits:{R:0.7,C:0.6}, eduMin:"assoc", majors:["mechanical","oil and gas","corrosion"], salaryUSD:70000, queries:["Pipeline Integrity Technician Texas","Pipeline Inspection Tech Texas"]},
+  {title:"Railcar Repair Technician", desc:"Inspect/repair railcars per AAR standards.", traits:{R:0.9,C:0.4}, eduMin:"hs", majors:["mechanical","welding"], salaryUSD:56000, queries:["Railcar Repair Technician Texas","Railcar Mechanic Entry Texas"]},
+
+  // PUBLIC SAFETY & GOV (fresh roles)
+  {title:"Firefighter/EMT", desc:"Respond to emergencies and provide EMS care.", traits:{R:0.8,S:0.7}, eduMin:"cert", majors:["fire","emt","public safety"], salaryUSD:52000, queries:["Firefighter EMT Texas","Firefighter Paramedic Entry Texas"]},
+  {title:"Probation Officer (Entry)", desc:"Monitor caseloads and ensure compliance.", traits:{S:0.7,C:0.6}, eduMin:"bachelor", majors:["criminal justice","social work","psychology"], salaryUSD:52000, queries:["Probation Officer Entry Texas","Community Supervision Officer Texas"]},
+  {title:"Emergency Management Specialist (Entry)", desc:"Support planning, drills, and incident response.", traits:{C:0.7,E:0.4}, eduMin:"bachelor", majors:["emergency management","public administration"], salaryUSD:60000, queries:["Emergency Management Specialist Entry Texas","Emergency Planner Texas"]},
+
+  // REAL ESTATE & FACILITIES (new)
+  {title:"Leasing Consultant (Multifamily)", desc:"Tour, lease, and support resident retention.", traits:{E:0.7,S:0.6}, eduMin:"hs", majors:["real estate","business"], salaryUSD:45000, queries:["Leasing Consultant Texas","Apartment Leasing Agent Texas"]},
+  {title:"Facilities Coordinator", desc:"Vendor scheduling, work orders, and CMMS updates.", traits:{C:0.8,S:0.4}, eduMin:"assoc", majors:["facilities","operations"], salaryUSD:52000, queries:["Facilities Coordinator Texas","Facility Operations Coordinator Texas"]},
+
+  // CONSTRUCTION & TRADES (different from prior)
+  {title:"Roofer (Apprentice)", desc:"Assist roof installs and repairs safely.", traits:{R:0.9,C:0.3}, eduMin:"hs", majors:["construction","roofing"], salaryUSD:46000, queries:["Roofer Apprentice Texas","Roofing Helper Entry Texas"]},
+  {title:"Concrete Finisher", desc:"Place, finish, and cure concrete to spec.", traits:{R:0.9,C:0.4}, eduMin:"hs", majors:["construction","concrete"], salaryUSD:52000, queries:["Concrete Finisher Texas","Concrete Technician Texas"]},
+  {title:"Low Voltage Technician (Entry)", desc:"Install cabling, cameras, and access control.", traits:{R:0.7,C:0.5}, eduMin:"hs", majors:["low voltage","electrical","it"], salaryUSD:52000, queries:["Low Voltage Technician Entry Texas","Security Systems Installer Texas"]},
+
+  // CREATIVE, MEDIA & COMMUNICATIONS (fresh)
+  {title:"UX Research Assistant (Entry)", desc:"Run usability tests and synthesize insights.", traits:{I:0.6,S:0.6,A:0.4}, eduMin:"bachelor", majors:["hci","psychology","design"], salaryUSD:65000, queries:["UX Research Assistant Texas","User Research Assistant Entry Texas"]},
+  {title:"Technical Illustrator", desc:"Create clear diagrams for manuals and training.", traits:{A:0.7,C:0.6}, eduMin:"somecollege", majors:["illustration","design","technical"], salaryUSD:56000, queries:["Technical Illustrator Texas","Technical Artist Documentation Texas"]},
+  {title:"Corporate Communications Specialist (Entry)", desc:"Draft internal news and executive messaging.", traits:{A:0.6,C:0.6,E:0.4}, eduMin:"bachelor", majors:["communications","journalism","public relations"], salaryUSD:58000, queries:["Corporate Communications Specialist Entry Texas","Internal Communications Coordinator Texas"]},
+
+  // HOSPITALITY & CULINARY (new)
+  {title:"Culinary Instructor (Secondary/CTE)", desc:"Teach culinary arts and food safety.", traits:{S:0.8,A:0.4,C:0.5}, eduMin:"bachelor", majors:["culinary","cte","education"], salaryUSD:59000, queries:["Culinary Arts Teacher Texas","CTE Culinary Instructor Texas"]},
+  {title:"Hotel Operations Manager (Entry)", desc:"Lead front desk, housekeeping, and guest ops.", traits:{E:0.7,S:0.6,C:0.6}, eduMin:"bachelor", majors:["hospitality","business"], salaryUSD:56000, queries:["Hotel Operations Manager Entry Texas","Assistant General Manager Hotel Texas"]},
+
+  // ENVIRONMENT & AGRI (fresh)
+  {title:"Water/Wastewater Operator (Entry)", desc:"Operate treatment plants and ensure compliance.", traits:{R:0.7,C:0.6}, eduMin:"hs", majors:["water","environment","utility"], salaryUSD:52000, queries:["Water Operator Entry Texas","Wastewater Operator Trainee Texas"]},
+  {title:"Arborist (Climber/Entry)", desc:"Tree care, pruning, and safety rigging.", traits:{R:0.9}, eduMin:"hs", majors:["arboriculture","horticulture"], salaryUSD:50000, queries:["Arborist Climber Entry Texas","Tree Climber Texas"]},
+
+  // RETAIL & CUSTOMER (new)
+  {title:"Store Manager Trainee", desc:"Learn P&L, staffing, and merchandising.", traits:{E:0.7,C:0.7}, eduMin:"hs", majors:["business","management"], salaryUSD:52000, queries:["Store Manager Trainee Texas","Retail Management Trainee Texas"]},
+  {title:"Customer Success Manager (Entry SaaS)", desc:"Onboard users and improve retention.", traits:{S:0.8,E:0.5,C:0.5}, eduMin:"bachelor", majors:["business","communications","information"], salaryUSD:60000, queries:["Customer Success Manager Entry Texas","CSM Junior Texas"]},
+
+  // HR & PEOPLE (new)
+  {title:"Recruiter (Agency/Corporate) Entry", desc:"Source candidates and coordinate interviews.", traits:{E:0.7,S:0.7,C:0.5}, eduMin:"bachelor", majors:["hr","business","communications"], salaryUSD:54000, queries:["Recruiter Entry Level Texas","Talent Acquisition Coordinator Texas"]},
+  {title:"Compensation Analyst (Entry)", desc:"Maintain salary structures and market data.", traits:{I:0.6,C:0.8}, eduMin:"bachelor", majors:["hr","business","analytics"], salaryUSD:64000, queries:["Compensation Analyst Entry Texas","Comp Analyst Junior Texas"]},
+
+  // LEGAL & COMPLIANCE (fresh)
+  {title:"Court Clerk (District/County)", desc:"Process filings and manage court dockets.", traits:{C:0.9}, eduMin:"hs", majors:["legal","administration"], salaryUSD:43000, queries:["Court Clerk Texas","District Court Clerk Texas"]},
+  {title:"Title Examiner (Entry)", desc:"Research property records for title defects.", traits:{C:0.8,I:0.5}, eduMin:"assoc", majors:["real estate","paralegal"], salaryUSD:52000, queries:["Title Examiner Entry Texas","Title Abstractor Texas"]},
+
+  // SCIENCE & LAB (new)
+  {title:"Environmental Lab Technician", desc:"Analyze water/soil samples and report results.", traits:{I:0.6,C:0.7}, eduMin:"assoc", majors:["chemistry","environment","biology"], salaryUSD:50000, queries:["Environmental Lab Technician Texas","Lab Tech Environmental Texas"]},
+  {title:"Biomanufacturing Technician (Entry)", desc:"Operate bioreactors and follow GMP.", traits:{C:0.7,R:0.5}, eduMin:"assoc", majors:["biotech","biomanufacturing"], salaryUSD:56000, queries:["Biomanufacturing Technician Entry Texas","Biotech Production Tech Texas"]},
+
+  // AVIATION (Texas hubs)
+  {title:"Aircraft Maintenance Technician (Apprentice)", desc:"Assist A&P mechanics with inspections and repairs.", traits:{R:0.9,C:0.5}, eduMin:"hs", majors:["aircraft","aviation maintenance"], salaryUSD:60000, queries:["Aircraft Maintenance Technician Apprentice Texas","AMT Trainee Texas"]},
+  {title:"Air Traffic Control Assistant (Tower Coordinator)", desc:"Support tower ops and flight data.", traits:{C:0.8,I:0.5}, eduMin:"assoc", majors:["aviation","atc"], salaryUSD:54000, queries:["Air Traffic Assistant Texas","ATC Assistant Texas"]},
+
+  // SPORTS, COMMUNITY & RECREATION (new)
+  {title:"Parks & Recreation Program Coordinator", desc:"Run leagues, camps, and community events.", traits:{E:0.7,S:0.7,C:0.5}, eduMin:"bachelor", majors:["recreation","kinesiology","public administration"], salaryUSD:47000, queries:["Parks and Recreation Coordinator Texas","Recreation Coordinator Texas"]},
+  {title:"Outdoor Education Instructor", desc:"Lead environmental/outdoor learning programs.", traits:{S:0.8,R:0.5}, eduMin:"somecollege", majors:["education","environment"], salaryUSD:42000, queries:["Outdoor Education Instructor Texas","Environmental Educator Texas"]},
+
+  // LIBRARY & MUSEUM (new)
+  {title:"Archivist (Junior)", desc:"Process and preserve collections and records.", traits:{C:0.8,I:0.6}, eduMin:"master", majors:["library","archives","history","information"], salaryUSD:56000, queries:["Archivist Junior Texas","Assistant Archivist Texas"]},
+  {title:"Museum Educator", desc:"Create tours and learning experiences.", traits:{S:0.8,A:0.4}, eduMin:"bachelor", majors:["museum","education","history"], salaryUSD:46000, queries:["Museum Educator Texas","Museum Education Specialist Texas"]},
+  
+
+// === END TEXAS SCHOOL & ENTREPRENEUR BUCKETS ==
+
     const EDU_RANK = {hs:0, somecollege:0.3, cert:0.2, assoc:0.4, bachelor:0.6, master:0.8, phd:1};
 
     // -------------------- QUIZ ENGINE --------------------

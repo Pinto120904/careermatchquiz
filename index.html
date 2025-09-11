@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Career Match Quiz — 30‑Question Trait Engine + Live Job Links</title>
-  <meta name="description" content="Answer 30 questions to discover careers that fit your traits. Then add education & degree and jump to live job listings. No login." />
+  <title>Career Match Quiz — 20‑Question Trait Engine + Live Job Links</title>
+  <meta name="description" content="Answer 20 questions to discover careers that fit your traits. Then add education & degree and jump to live job listings." />
   <style>
     :root { --bg:#0f172a; --card:#0b1222; --ink:#ffffff; --muted:#9ca3af; --brand:#22c55e; --accent:#38bdf8; --line:#1f2937; --opt:#091326; --optSel:#14532d; --optSelBorder:#16a34a; }
     * { box-sizing: border-box; }
@@ -118,237 +118,365 @@
   <footer>Find your Career</footer>
 
   <script>
-    // -------------------- 30 QUESTION BANK (each has a "None of these fit me") --------------------
-    const QUESTIONS = [
-      {t:"When meeting new people, how do you usually feel?", o:[
-        {label:"Excited and talkative", w:{E:2,S:1}},
-        {label:"Curious and observant", w:{I:2}},
-        {label:"Creative and expressive", w:{A:2}},
-        {label:"Careful and reserved", w:{C:2}},
-        {label:"None of these fit me", w:{}}
-      ]},
-      {t:"Pick a weekend activity:", o:[
-        {label:"Building or fixing something", w:{R:2}},
-        {label:"Helping people or volunteering", w:{S:2}},
-        {label:"Drawing, music, or writing", w:{A:2}},
-        {label:"Exploring puzzles or science", w:{I:2}},
-        {label:"None of these fit me", w:{}}
-      ]},
-      {t:"Which school subject did you enjoy most?", o:[
-        {label:"Math or Science", w:{I:2}},
-        {label:"Art or Reading", w:{A:2}},
-        {label:"Sports or Shop class", w:{R:2}},
-        {label:"Student Council or Leadership", w:{E:2}},
-        {label:"None of these fit me", w:{}}
-      ]},
-      {t:"What motivates you most?", o:[
-        {label:"Helping others succeed", w:{S:2}},
-        {label:"Solving tough problems", w:{I:2}},
-        {label:"Bringing new ideas to life", w:{A:2}},
-        {label:"Being organized and efficient", w:{C:2}},
-        {label:"None of these fit me", w:{}}
-      ]},
-      {t:"Preferred work style:", o:[
-        {label:"Clear steps and checklists", w:{C:2}},
-        {label:"Freedom to try new ideas", w:{A:2,I:1}},
-        {label:"Talking to people often", w:{S:2,E:1}},
-        {label:"Hands‑on and moving", w:{R:2}},
-        {label:"None of these fit me", w:{}}
-      ]},
-      {t:"You're given a new tool. First instinct:", o:[
-        {label:"Read the manual and test features", w:{I:2,C:1}},
-        {label:"Click around and design something", w:{A:2}},
-        {label:"Ask someone and watch them", w:{S:1,I:1}},
-        {label:"Take it apart and rebuild", w:{R:2}},
-        {label:"None of these fit me", w:{}}
-      ]},
-      {t:"What environment do you prefer?", o:[
-        {label:"Quiet, focus time", w:{I:2}},
-        {label:"Busy and with people", w:{E:1,S:1}},
-        {label:"Orderly with clear steps", w:{C:2}},
-        {label:"Workshop or field work", w:{R:2}},
-        {label:"None of these fit me", w:{}}
-      ]},
-      {t:"Which task would you pick?", o:[
-        {label:"Make a simple chart from data", w:{I:2,C:1}},
-        {label:"Write a short ad or post", w:{A:2,E:1}},
-        {label:"Plan a delivery schedule", w:{C:2}},
-        {label:"Fix a broken device", w:{R:2}},
-        {label:"None of these fit me", w:{}}
-      ]},
-      {t:"Your biggest strength:", o:[
-        {label:"Finding patterns", w:{I:2}},
-        {label:"Convincing others", w:{E:2}},
-        {label:"Caring about people", w:{S:2}},
-        {label:"Building or crafting", w:{R:2}},
-        {label:"None of these fit me", w:{}}
-      ]},
-      {t:"You’d rather…", o:[
-        {label:"Work with numbers", w:{I:2,C:1}},
-        {label:"Talk and sell", w:{E:2}},
-        {label:"Design visuals", w:{A:2}},
-        {label:"Support people with tech", w:{S:1,R:1}},
-        {label:"None of these fit me", w:{}}
-      ]},
-      {t:"When learning something new, what helps you most?", o:[
-        {label:"Watching (visual)", w:{A:1,I:1}},
-        {label:"Doing it hands‑on", w:{R:2,I:1}},
-        {label:"Listening to others", w:{S:2,I:1}},
-        {label:"Reading instructions", w:{C:2}},
-        {label:"None of these fit me", w:{}}
-      ]},
-      {t:"What sounds like success?", o:[
-        {label:"Everything balanced", w:{C:2,I:1}},
-        {label:"A product that excites people", w:{A:1,E:1}},
-        {label:"Happy customers", w:{S:2}},
-        {label:"Machines working smoothly", w:{R:2}},
-        {label:"None of these fit me", w:{}}
-      ]},
-      {t:"Pick a course you'd ace:", o:[
-        {label:"Statistics", w:{I:2}},
-        {label:"Starting a small business", w:{E:2}},
-        {label:"Design basics", w:{A:2}},
-        {label:"How things run (operations)", w:{C:2}},
-        {label:"Biology or Health Science", w:{S:2,I:1}},
-        {label:"Technology / Computers", w:{R:1,I:2}},
-        {label:"None of these fit me", w:{}}
-      ]},
-      {t:"Tight deadline. You…", o:[
-        {label:"Make a checklist and focus", w:{C:2}},
-        {label:"Get people together and decide", w:{E:2}},
-        {label:"Build a quick test", w:{R:1,I:1}},
-        {label:"Ask users what matters most", w:{S:1,A:1}},
-        {label:"None of these fit me", w:{}}
-      ]},
-      {t:"Preferred tools (simple words):", o:[
-        {label:"Spreadsheets or simple data tools", w:{I:2,C:1}},
-        {label:"Customer contact tools", w:{E:2}},
-        {label:"Design apps", w:{A:2}},
-        {label:"Help desk / ticket tools", w:{R:1,S:1}},
-        {label:"None of these fit me", w:{}}
-      ]},
-      {t:"Which feedback do you like most?", o:[
-        {label:"It's precise and right", w:{C:2}},
-        {label:"It sold / signed", w:{E:2}},
-        {label:"It's clear and beautiful", w:{A:2}},
-        {label:"It helped someone", w:{S:2}},
-        {label:"None of these fit me", w:{}}
-      ]},
-      {t:"Work you enjoy is…", o:[
-        {label:"Predictable and organized", w:{C:2}},
-        {label:"People‑focused", w:{S:2}},
-        {label:"Based on data", w:{I:2}},
-        {label:"Physical / technical", w:{R:2}},
-        {label:"None of these fit me", w:{}}
-      ]},
-      {t:"Pick a challenge:", o:[
-        {label:"Save time with a new process", w:{C:2,E:1}},
-        {label:"Find insights in messy data", w:{I:2}},
-        {label:"Win over a tough client", w:{E:2}},
-        {label:"Fix a production issue", w:{R:2}},
-        {label:"None of these fit me", w:{}}
-      ]},
-      {t:"Your team sees you as…", o:[
-        {label:"The organizer", w:{C:2}},
-        {label:"The analyst", w:{I:2}},
-        {label:"The people person", w:{S:2}},
-        {label:"The builder", w:{R:2}},
-        {label:"None of these fit me", w:{}}
-      ]},
-      {t:"Which document would you take ownership of?", o:[
-        {label:"Step‑by‑step guide / checklist", w:{C:2}},
-        {label:"Pitch or simple plan", w:{E:2}},
-        {label:"Design style guide", w:{A:2}},
-        {label:"Fix‑it guide / troubleshooting", w:{R:2}},
-        {label:"None of these fit me", w:{}}
-      ]},
-      {t:"A good day ends with…", o:[
-        {label:"Everything matched and tidy", w:{C:2}},
-        {label:"A yes from someone", w:{E:2}},
-        {label:"A finished design", w:{A:2}},
-        {label:"All tickets solved", w:{R:2,S:1}},
-        {label:"None of these fit me", w:{}}
-      ]},
-      {t:"Which meeting would you go to?", o:[
-        {label:"Data review", w:{I:2}},
-        {label:"Sales update", w:{E:2}},
-        {label:"Usability test chat", w:{A:1,S:1}},
-        {label:"Team meeting", w:{C:2}},
-        {label:"None of these fit me", w:{}}
-      ]},
-      {t:"Your goals are mostly…", o:[
-        {label:"Measured by numbers", w:{I:1,C:1}},
-        {label:"Winning and growth", w:{E:2}},
-        {label:"Helping people more", w:{S:2}},
-        {label:"Keeping things running", w:{R:2}},
-        {label:"None of these fit me", w:{}}
-      ]},
-      {t:"Tomorrow you could…", o:[
-        {label:"Build a report", w:{I:2,C:1}},
-        {label:"Call new contacts", w:{E:2}},
-        {label:"Design a simple page", w:{A:2}},
-        {label:"Install a device", w:{R:2}},
-        {label:"None of these fit me", w:{}}
-      ]},
-      {t:"You’re energized by…", o:[
-        {label:"Finding the truth in numbers", w:{I:2}},
-        {label:"Winning and recognition", w:{E:2}},
-        {label:"Expressing ideas visually", w:{A:2}},
-        {label:"Helping people fix problems", w:{S:2}},
-        {label:"None of these fit me", w:{}}
-      ]},
-      {t:"A complication pops up. You…", o:[
-        {label:"Re‑plan the steps", w:{C:2}},
-        {label:"Talk it through and adjust", w:{E:2}},
-        {label:"Try a new idea fast", w:{A:2}},
-        {label:"Jump in and unstick it", w:{R:2}},
-        {label:"None of these fit me", w:{}}
-      ]},
-      {t:"Best compliment for you:", o:[
-        {label:"So reliable and organized", w:{C:2}},
-        {label:"Great closer and motivator", w:{E:2}},
-        {label:"Very creative", w:{A:2}},
-        {label:"Super helpful and kind", w:{S:2}},
-        {label:"None of these fit me", w:{}}
-      ]},
-      {t:"How do you learn best?", o:[
-        {label:"Seeing pictures or videos (visual)", w:{A:1,I:1}},
-        {label:"Hands‑on doing (kinesthetic)", w:{R:2,I:1}},
-        {label:"Listening to someone explain (auditory)", w:{S:1,I:1}},
-        {label:"Reading and taking notes", w:{C:2}},
-        {label:"None of these fit me", w:{}}
-      ]},
-      {t:"Which metric would you own?", o:[
-        {label:"Accuracy / error rate", w:{C:2}},
-        {label:"Qualified leads", w:{E:2}},
-        {label:"Engagement or clicks", w:{A:1,E:1}},
-        {label:"Time to resolve", w:{R:2}},
-        {label:"None of these fit me", w:{}}
-      ]},
-      {t:"What do you trust most?", o:[
-        {label:"Data and evidence", w:{I:2}},
-        {label:"Market signals", w:{E:2}},
-        {label:"User feedback", w:{S:2}},
-        {label:"Bench tests", w:{R:2}},
-        {label:"None of these fit me", w:{}}
-      ]},
-      {t:"Pick a role on a team:", o:[
-        {label:"Planner", w:{C:2}},
-        {label:"Presenter", w:{E:2}},
-        {label:"Designer", w:{A:2}},
-        {label:"Fixer", w:{R:2}},
-        {label:"None of these fit me", w:{}}
-      ]},
-      {t:"Which workspace do you like?", o:[
-        {label:"Desk with a screen", w:{I:1,C:1}},
-        {label:"On‑the‑go with people", w:{E:1,S:1}},
-        {label:"Studio / creative space", w:{A:2}},
-        {label:"Shop / lab", w:{R:2}},
-        {label:"None of these fit me", w:{}}
-      ]}
-    ];
+<script>
+// =================== FULL 90-QUESTION MASTER BANK ===================
+const TRAITS = ['R','I','A','S','E','C'];
 
-    const TOTAL = QUESTIONS.length; // 30
+const ALL_QUESTIONS = [
+  // ---------- CORE (30 broad questions; same style/weights as your quiz) ----------
+  {cat:"core", t:"When meeting new people, how do you usually feel?", o:[
+    {label:"Excited and talkative", w:{E:2,S:1}}, {label:"Curious and observant", w:{I:2}},
+    {label:"Creative and expressive", w:{A:2}}, {label:"Careful and reserved",  w:{C:2}}, {label:"None",w:{}}
+  ]},
+  {cat:"core", t:"Pick a weekend activity:", o:[
+    {label:"Building or fixing something", w:{R:2}}, {label:"Helping people or volunteering", w:{S:2}},
+    {label:"Drawing, music, or writing", w:{A:2}}, {label:"Exploring puzzles or science", w:{I:2}}, {label:"None",w:{}}
+  ]},
+  {cat:"core", t:"Which school subject did you enjoy most?", o:[
+    {label:"Math or Science", w:{I:2}}, {label:"Art or Reading", w:{A:2}}, {label:"Sports or Shop class", w:{R:2}},
+    {label:"Student Council or Leadership", w:{E:2}}, {label:"None",w:{}}
+  ]},
+  {cat:"core", t:"What motivates you most?", o:[
+    {label:"Helping others succeed", w:{S:2}}, {label:"Solving tough problems", w:{I:2}},
+    {label:"Bringing new ideas to life", w:{A:2}}, {label:"Being organized and efficient", w:{C:2}}, {label:"None",w:{}}
+  ]},
+  {cat:"core", t:"Preferred work style:", o:[
+    {label:"Clear steps and checklists", w:{C:2}}, {label:"Freedom to try new ideas", w:{A:2,I:1}},
+    {label:"Talking to people often", w:{S:2,E:1}}, {label:"Hands-on and moving", w:{R:2}}, {label:"None",w:{}}
+  ]},
+  {cat:"core", t:"You're given a new tool. First instinct:", o:[
+    {label:"Read the manual and test", w:{I:2,C:1}}, {label:"Click around and design", w:{A:2}},
+    {label:"Ask someone and watch", w:{S:1,I:1}}, {label:"Take it apart and rebuild", w:{R:2}}, {label:"None",w:{}}
+  ]},
+  {cat:"core", t:"What environment do you prefer?", o:[
+    {label:"Quiet, focus time", w:{I:2}}, {label:"Busy and with people", w:{E:1,S:1}},
+    {label:"Orderly with clear steps", w:{C:2}}, {label:"Workshop or field work", w:{R:2}}, {label:"None",w:{}}
+  ]},
+  {cat:"core", t:"Which task would you pick?", o:[
+    {label:"Make a chart from data", w:{I:2,C:1}}, {label:"Write a short ad or post", w:{A:2,E:1}},
+    {label:"Plan a delivery schedule", w:{C:2}}, {label:"Fix a broken device", w:{R:2}}, {label:"None",w:{}}
+  ]},
+  {cat:"core", t:"Your biggest strength:", o:[
+    {label:"Finding patterns", w:{I:2}}, {label:"Convincing others", w:{E:2}}, {label:"Caring about people", w:{S:2}},
+    {label:"Building or crafting", w:{R:2}}, {label:"None",w:{}}
+  ]},
+  {cat:"core", t:"You’d rather…", o:[
+    {label:"Work with numbers", w:{I:2,C:1}}, {label:"Talk and sell", w:{E:2}}, {label:"Design visuals", w:{A:2}},
+    {label:"Support people with tech", w:{S:1,R:1}}, {label:"None",w:{}}
+  ]},
+  {cat:"core", t:"When learning something new, what helps you most?", o:[
+    {label:"Watching (visual)", w:{A:1,I:1}}, {label:"Doing hands-on", w:{R:2,I:1}}, {label:"Listening", w:{S:2,I:1}},
+    {label:"Reading instructions", w:{C:2}}, {label:"None",w:{}}
+  ]},
+  {cat:"core", t:"What sounds like success?", o:[
+    {label:"Everything balanced", w:{C:2,I:1}}, {label:"A product that excites people", w:{A:1,E:1}},
+    {label:"Happy customers", w:{S:2}}, {label:"Machines working smoothly", w:{R:2}}, {label:"None",w:{}}
+  ]},
+  {cat:"core", t:"Pick a course you'd ace:", o:[
+    {label:"Statistics", w:{I:2}}, {label:"Starting a small business", w:{E:2}}, {label:"Design basics", w:{A:2}},
+    {label:"Operations mgmt", w:{C:2}}, {label:"Biology/Health", w:{S:2,I:1}}, {label:"Technology/Computers", w:{R:1,I:2}}, {label:"None",w:{}}
+  ]},
+  {cat:"core", t:"Tight deadline. You…", o:[
+    {label:"Make a checklist", w:{C:2}}, {label:"Get people together", w:{E:2}}, {label:"Build a quick test", w:{R:1,I:1}},
+    {label:"Ask users what matters most", w:{S:1,A:1}}, {label:"None",w:{}}
+  ]},
+  {cat:"core", t:"Preferred tools:", o:[
+    {label:"Spreadsheets", w:{I:2,C:1}}, {label:"Customer contact tools", w:{E:2}},
+    {label:"Design apps", w:{A:2}}, {label:"Help desk tools", w:{R:1,S:1}}, {label:"None",w:{}}
+  ]},
+  {cat:"core", t:"Which feedback do you like most?", o:[
+    {label:"It's precise and right", w:{C:2}}, {label:"It sold / signed", w:{E:2}}, {label:"It's clear and beautiful", w:{A:2}},
+    {label:"It helped someone", w:{S:2}}, {label:"None",w:{}}
+  ]},
+  {cat:"core", t:"Work you enjoy is…", o:[
+    {label:"Predictable and organized", w:{C:2}}, {label:"People-focused", w:{S:2}}, {label:"Based on data", w:{I:2}},
+    {label:"Physical / technical", w:{R:2}}, {label:"None",w:{}}
+  ]},
+  {cat:"core", t:"Pick a challenge:", o:[
+    {label:"Save time with a process", w:{C:2,E:1}}, {label:"Find insights in messy data", w:{I:2}},
+    {label:"Win over a tough client", w:{E:2}}, {label:"Fix a production issue", w:{R:2}}, {label:"None",w:{}}
+  ]},
+  {cat:"core", t:"Your team sees you as…", o:[
+    {label:"The organizer", w:{C:2}}, {label:"The analyst", w:{I:2}}, {label:"The people person", w:{S:2}},
+    {label:"The builder", w:{R:2}}, {label:"None",w:{}}
+  ]},
+  {cat:"core", t:"Which doc would you own?", o:[
+    {label:"Step-by-step guide", w:{C:2}}, {label:"Pitch deck", w:{E:2}}, {label:"Design style guide", w:{A:2}},
+    {label:"Fix-it guide", w:{R:2}}, {label:"None",w:{}}
+  ]},
+  {cat:"core", t:"A good day ends with…", o:[
+    {label:"Everything tidy", w:{C:2}}, {label:"A yes from someone", w:{E:2}}, {label:"A finished design", w:{A:2}},
+    {label:"All tickets solved", w:{R:2,S:1}}, {label:"None",w:{}}
+  ]},
+  {cat:"core", t:"Which meeting?", o:[
+    {label:"Data review", w:{I:2}}, {label:"Sales update", w:{E:2}}, {label:"Usability chat", w:{A:1,S:1}},
+    {label:"Team sync", w:{C:2}}, {label:"None",w:{}}
+  ]},
+  {cat:"core", t:"Your goals are…", o:[
+    {label:"Measured by numbers", w:{I:1,C:1}}, {label:"Winning and growth", w:{E:2}},
+    {label:"Helping people", w:{S:2}}, {label:"Keeping systems running", w:{R:2}}, {label:"None",w:{}}
+  ]},
+  {cat:"core", t:"Tomorrow you could…", o:[
+    {label:"Build a report", w:{I:2,C:1}}, {label:"Call new contacts", w:{E:2}},
+    {label:"Design a page", w:{A:2}}, {label:"Install a device", w:{R:2}}, {label:"None",w:{}}
+  ]},
+  {cat:"core", t:"You’re energized by…", o:[
+    {label:"Finding truth in data", w:{I:2}}, {label:"Recognition", w:{E:2}}, {label:"Expressing ideas visually", w:{A:2}},
+    {label:"Helping people fix things", w:{S:2}}, {label:"None",w:{}}
+  ]},
+  {cat:"core", t:"A complication pops up. You…", o:[
+    {label:"Re-plan steps", w:{C:2}}, {label:"Talk it through", w:{E:2}}, {label:"Try a new idea fast", w:{A:2}},
+    {label:"Jump in and fix", w:{R:2}}, {label:"None",w:{}}
+  ]},
+  {cat:"core", t:"Best compliment:", o:[
+    {label:"Reliable and organized", w:{C:2}}, {label:"Great closer", w:{E:2}}, {label:"Very creative", w:{A:2}},
+    {label:"Super helpful", w:{S:2}}, {label:"None",w:{}}
+  ]},
+  {cat:"core", t:"How do you learn best?", o:[
+    {label:"Seeing (visual)", w:{A:1,I:1}}, {label:"Hands-on", w:{R:2,I:1}}, {label:"Listening", w:{S:1,I:1}},
+    {label:"Reading", w:{C:2}}, {label:"None",w:{}}
+  ]},
+  {cat:"core", t:"Which metric would you own?", o:[
+    {label:"Accuracy", w:{C:2}}, {label:"Qualified leads", w:{E:2}}, {label:"Engagement/clicks", w:{A:1,E:1}},
+    {label:"Time to resolve", w:{R:2}}, {label:"None",w:{}}
+  ]},
+  {cat:"core", t:"What do you trust most?", o:[
+    {label:"Data", w:{I:2}}, {label:"Market signals", w:{E:2}}, {label:"User feedback", w:{S:2}},
+    {label:"Bench tests", w:{R:2}}, {label:"None",w:{}}
+  ]},
+  {cat:"core", t:"Pick a role on a team:", o:[
+    {label:"Planner", w:{C:2}}, {label:"Presenter", w:{E:2}}, {label:"Designer", w:{A:2}},
+    {label:"Fixer", w:{R:2}}, {label:"None",w:{}}
+  ]},
+  {cat:"core", t:"Which workspace?", o:[
+    {label:"Desk w/ screen", w:{I:1,C:1}}, {label:"On-the-go with people", w:{E:1,S:1}},
+    {label:"Studio", w:{A:2}}, {label:"Shop/lab", w:{R:2}}, {label:"None",w:{}}
+  ]},
+
+  // ---------- NICHE (60 questions, 10 per sector) ----------
+  // ========== EDUCATION (10) ==========
+  {cat:"niche", sector:"education", t:"Would you enjoy mentoring new teachers?", o:[
+    {label:"Yes",w:{S:2,C:1}}, {label:"Maybe",w:{S:1}}, {label:"No",w:{}}, {label:"None",w:{}}
+  ]},
+  {cat:"niche", sector:"education", t:"Comfortable with classroom management at scale?", o:[
+    {label:"Yes",w:{S:2,E:1}}, {label:"Somewhat",w:{S:1}}, {label:"No",w:{}}, {label:"None",w:{}}
+  ]},
+  {cat:"niche", sector:"education", t:"Interested in designing curriculum or assessments?", o:[
+    {label:"Yes",w:{C:2,A:1}}, {label:"Somewhat",w:{C:1}}, {label:"No",w:{}}, {label:"None",w:{}}
+  ]},
+  {cat:"niche", sector:"education", t:"Like working with families and parent communication?", o:[
+    {label:"Yes",w:{S:2,E:1}}, {label:"Sometimes",w:{S:1}}, {label:"Prefer minimal",w:{}}, {label:"None",w:{}}
+  ]},
+  {cat:"niche", sector:"education", t:"Comfortable coaching peers on teaching techniques?", o:[
+    {label:"Yes",w:{S:2,C:1}}, {label:"Maybe",w:{S:1}}, {label:"No",w:{}}, {label:"None",w:{}}
+  ]},
+  {cat:"niche", sector:"education", t:"Enjoy leading extracurriculars (sports, arts, clubs)?", o:[
+    {label:"Yes",w:{E:1,S:1,A:1}}, {label:"Maybe",w:{S:1}}, {label:"No",w:{}}, {label:"None",w:{}}
+  ]},
+  {cat:"niche", sector:"education", t:"Would you manage testing/attendance logistics?", o:[
+    {label:"Yes",w:{C:2,S:1}}, {label:"Somewhat",w:{C:1}}, {label:"No",w:{}}, {label:"None",w:{}}
+  ]},
+  {cat:"niche", sector:"education", t:"Prefer early grades (Pre-K/Elem) vs. secondary?", o:[
+    {label:"Early grades",w:{S:2}}, {label:"Secondary",w:{I:1,S:1}}, {label:"Either",w:{S:1}}, {label:"None",w:{}}
+  ]},
+  {cat:"niche", sector:"education", t:"Comfortable with SPED/IEP documentation and meetings?", o:[
+    {label:"Yes",w:{S:2,C:1}}, {label:"Somewhat",w:{S:1}}, {label:"No",w:{}}, {label:"None",w:{}}
+  ]},
+  {cat:"niche", sector:"education", t:"Enjoy creating visuals/learning materials?", o:[
+    {label:"Yes",w:{A:2}}, {label:"Sometimes",w:{A:1}}, {label:"No",w:{}}, {label:"None",w:{}}
+  ]},
+
+  // ========== HEALTH (10) ==========
+  {cat:"niche", sector:"health", t:"Open to shift-based patient care (nights/weekends)?", o:[
+    {label:"Yes",w:{S:2,C:1}}, {label:"Sometimes",w:{S:1}}, {label:"Prefer weekdays",w:{C:1}}, {label:"None",w:{}}
+  ]},
+  {cat:"niche", sector:"health", t:"Interested in imaging (MRI/ultrasound/X-ray)?", o:[
+    {label:"Very",w:{I:1,C:1}}, {label:"A little",w:{I:1}}, {label:"Not really",w:{}}, {label:"None",w:{}}
+  ]},
+  {cat:"niche", sector:"health", t:"Okay with clinical documentation & protocols?", o:[
+    {label:"Yes",w:{C:2}}, {label:"Somewhat",w:{C:1}}, {label:"No",w:{}}, {label:"None",w:{}}
+  ]},
+  {cat:"niche", sector:"health", t:"Prefer direct patient care vs. lab/diagnostics?", o:[
+    {label:"Direct care",w:{S:2}}, {label:"Lab/diagnostics",w:{I:1,C:1}}, {label:"Either",w:{S:1}}, {label:"None",w:{}}
+  ]},
+  {cat:"niche", sector:"health", t:"Interested in patient education & wellness coaching?", o:[
+    {label:"Yes",w:{S:2}}, {label:"Maybe",w:{S:1}}, {label:"No",w:{}}, {label:"None",w:{}}
+  ]},
+  {cat:"niche", sector:"health", t:"Can handle fast-paced ER/acute environments?", o:[
+    {label:"Yes",w:{S:2,R:1}}, {label:"Sometimes",w:{S:1}}, {label:"Prefer slower pace",w:{C:1}}, {label:"None",w:{}}
+  ]},
+  {cat:"niche", sector:"health", t:"Comfortable with infection control procedures?", o:[
+    {label:"Yes",w:{C:2}}, {label:"Somewhat",w:{C:1}}, {label:"No",w:{}}, {label:"None",w:{}}
+  ]},
+  {cat:"niche", sector:"health", t:"Interested in research/clinical trials coordination?", o:[
+    {label:"Yes",w:{I:1,C:1}}, {label:"Maybe",w:{I:1}}, {label:"No",w:{}}, {label:"None",w:{}}
+  ]},
+  {cat:"niche", sector:"health", t:"Enjoy working with children/students (school health)?", o:[
+    {label:"Yes",w:{S:2}}, {label:"Sometimes",w:{S:1}}, {label:"Prefer adults",w:{}}, {label:"None",w:{}}
+  ]},
+  {cat:"niche", sector:"health", t:"Comfortable with detailed charting (EMR)?", o:[
+    {label:"Yes",w:{C:2}}, {label:"Somewhat",w:{C:1}}, {label:"No",w:{}}, {label:"None",w:{}}
+  ]},
+
+  // ========== BUSINESS / OPS (10) ==========
+  {cat:"niche", sector:"business", t:"Enjoy leading small teams or office operations?", o:[
+    {label:"Yes",w:{E:1,C:1,S:1}}, {label:"Maybe",w:{E:1}}, {label:"No",w:{}}, {label:"None",w:{}}
+  ]},
+  {cat:"niche", sector:"business", t:"Comfortable with sales/outreach calls?", o:[
+    {label:"Yes",w:{E:2,S:1}}, {label:"Somewhat",w:{E:1}}, {label:"No",w:{}}, {label:"None",w:{}}
+  ]},
+  {cat:"niche", sector:"business", t:"Prefer planning/scheduling and process work?", o:[
+    {label:"Yes",w:{C:2}}, {label:"Sometimes",w:{C:1}}, {label:"No",w:{}}, {label:"None",w:{}}
+  ]},
+  {cat:"niche", sector:"business", t:"Interested in logistics/supply chain tasks?", o:[
+    {label:"Yes",w:{C:1,I:1}}, {label:"Somewhat",w:{C:1}}, {label:"No",w:{}}, {label:"None",w:{}}
+  ]},
+  {cat:"niche", sector:"business", t:"Do you like working with budgets and reports?", o:[
+    {label:"Yes",w:{C:2,I:1}}, {label:"A bit",w:{C:1}}, {label:"Not much",w:{}}, {label:"None",w:{}}
+  ]},
+  {cat:"niche", sector:"business", t:"Prefer customer success/retention over new sales?", o:[
+    {label:"Customer success",w:{S:2}}, {label:"New sales",w:{E:2}}, {label:"Either",w:{S:1,E:1}}, {label:"None",w:{}}
+  ]},
+  {cat:"niche", sector:"business", t:"Enjoy event planning & vendor coordination?", o:[
+    {label:"Yes",w:{C:1,E:1}}, {label:"Sometimes",w:{C:1}}, {label:"No",w:{}}, {label:"None",w:{}}
+  ]},
+  {cat:"niche", sector:"business", t:"Like analyzing basic KPIs and dashboards?", o:[
+    {label:"Yes",w:{I:1,C:1}}, {label:"Somewhat",w:{I:1}}, {label:"No",w:{}}, {label:"None",w:{}}
+  ]},
+  {cat:"niche", sector:"business", t:"Interested in HR/people operations tasks?", o:[
+    {label:"Yes",w:{C:1,S:1}}, {label:"Maybe",w:{S:1}}, {label:"No",w:{}}, {label:"None",w:{}}
+  ]},
+  {cat:"niche", sector:"business", t:"Comfortable writing clear emails and docs?", o:[
+    {label:"Yes",w:{C:1,A:1}}, {label:"Somewhat",w:{C:1}}, {label:"No",w:{}}, {label:"None",w:{}}
+  ]},
+
+  // ========== TECH / DATA / CYBER (10) ==========
+  {cat:"niche", sector:"tech", t:"Interested in security monitoring or GRC?", o:[
+    {label:"Yes",w:{I:1,C:1}}, {label:"Maybe",w:{I:1}}, {label:"No",w:{}}, {label:"None",w:{}}
+  ]},
+  {cat:"niche", sector:"tech", t:"Enjoy building dashboards/data visuals?", o:[
+    {label:"Yes",w:{I:1,A:1}}, {label:"Somewhat",w:{I:1}}, {label:"No",w:{}}, {label:"None",w:{}}
+  ]},
+  {cat:"niche", sector:"tech", t:"Like troubleshooting hardware/networks?", o:[
+    {label:"Yes",w:{R:1,C:1}}, {label:"Sometimes",w:{R:1}}, {label:"No",w:{}}, {label:"None",w:{}}
+  ]},
+  {cat:"niche", sector:"tech", t:"Prefer coding features vs. automation/DevOps?", o:[
+    {label:"Coding features",w:{I:2}}, {label:"Automation/DevOps",w:{I:1,C:1,R:1}}, {label:"Either",w:{I:1}}, {label:"None",w:{}}
+  ]},
+  {cat:"niche", sector:"tech", t:"Interested in accessibility audits (WCAG)?", o:[
+    {label:"Yes",w:{C:1,I:1}}, {label:"Maybe",w:{I:1}}, {label:"No",w:{}}, {label:"None",w:{}}
+  ]},
+  {cat:"niche", sector:"tech", t:"Enjoy writing SQL and cleaning data?", o:[
+    {label:"Yes",w:{I:1,C:1}}, {label:"Sometimes",w:{I:1}}, {label:"No",w:{}}, {label:"None",w:{}}
+  ]},
+  {cat:"niche", sector:"tech", t:"Prefer front-end/UI vs. back-end/APIs?", o:[
+    {label:"Front-end/UI",w:{A:1,I:1}}, {label:"Back-end/APIs",w:{I:2}}, {label:"Either",w:{I:1}}, {label:"None",w:{}}
+  ]},
+  {cat:"niche", sector:"tech", t:"Like documenting systems/runbooks?", o:[
+    {label:"Yes",w:{C:1}}, {label:"Sometimes",w:{C:1}}, {label:"No",w:{}}, {label:"None",w:{}}
+  ]},
+  {cat:"niche", sector:"tech", t:"Interested in AI/ML model workflows?", o:[
+    {label:"Yes",w:{I:2}}, {label:"Somewhat",w:{I:1}}, {label:"No",w:{}}, {label:"None",w:{}}
+  ]},
+  {cat:"niche", sector:"tech", t:"Enjoy QA testing and finding edge cases?", o:[
+    {label:"Yes",w:{C:1,I:1}}, {label:"Sometimes",w:{C:1}}, {label:"No",w:{}}, {label:"None",w:{}}
+  ]},
+
+  // ========== TRADES / FIELD (10) ==========
+  {cat:"niche", sector:"trades", t:"Interested in paid apprenticeships (HVAC/electrical/welding)?", o:[
+    {label:"Yes",w:{R:2}}, {label:"Maybe",w:{R:1}}, {label:"No",w:{}}, {label:"None",w:{}}
+  ]},
+  {cat:"niche", sector:"trades", t:"Okay with working at heights/outdoors/heat?", o:[
+    {label:"Yes",w:{R:2}}, {label:"Sometimes",w:{R:1}}, {label:"Prefer indoors",w:{I:1}}, {label:"None",w:{}}
+  ]},
+  {cat:"niche", sector:"trades", t:"Enjoy following SOPs and safety checklists?", o:[
+    {label:"Yes",w:{C:2}}, {label:"Sometimes",w:{C:1}}, {label:"No",w:{}}, {label:"None",w:{}}
+  ]},
+  {cat:"niche", sector:"trades", t:"Prefer electrical/mechanical over carpentry?", o:[
+    {label:"Electrical/mechanical",w:{R:2,C:1}}, {label:"Carpentry",w:{R:1}}, {label:"Either",w:{R:1}}, {label:"None",w:{}}
+  ]},
+  {cat:"niche", sector:"trades", t:"Comfortable reading basic schematics/diagrams?", o:[
+    {label:"Yes",w:{I:1,C:1}}, {label:"Somewhat",w:{C:1}}, {label:"No",w:{}}, {label:"None",w:{}}
+  ]},
+  {cat:"niche", sector:"trades", t:"Interested in instrumentation/controls?", o:[
+    {label:"Yes",w:{R:1,C:1}}, {label:"Maybe",w:{R:1}}, {label:"No",w:{}}, {label:"None",w:{}}
+  ]},
+  {cat:"niche", sector:"trades", t:"Prefer shop/yard vs. on-site travel work?", o:[
+    {label:"Shop/yard",w:{R:1,C:1}}, {label:"On-site travel",w:{R:2}}, {label:"Either",w:{R:1}}, {label:"None",w:{}}
+  ]},
+  {cat:"niche", sector:"trades", t:"Enjoy fixing things others can’t figure out?", o:[
+    {label:"Yes",w:{R:2}}, {label:"Sometimes",w:{R:1}}, {label:"No",w:{}}, {label:"None",w:{}}
+  ]},
+  {cat:"niche", sector:"trades", t:"Okay with PPE, lock-out/tag-out, confined spaces?", o:[
+    {label:"Yes",w:{C:2}}, {label:"Somewhat",w:{C:1}}, {label:"No",w:{}}, {label:"None",w:{}}
+  ]},
+  {cat:"niche", sector:"trades", t:"Like tracking work orders in a CMMS?", o:[
+    {label:"Yes",w:{C:1}}, {label:"Sometimes",w:{C:1}}, {label:"No",w:{}}, {label:"None",w:{}}
+  ]},
+
+  // ========== PUBLIC / GOV / SAFETY (10) ==========
+  {cat:"niche", sector:"public", t:"Interested in emergency response or public safety?", o:[
+    {label:"Yes",w:{R:1,S:1,C:1}}, {label:"Maybe",w:{S:1}}, {label:"No",w:{}}, {label:"None",w:{}}
+  ]},
+  {cat:"niche", sector:"public", t:"Comfortable with policy/procedure compliance?", o:[
+    {label:"Yes",w:{C:2}}, {label:"Somewhat",w:{C:1}}, {label:"No",w:{}}, {label:"None",w:{}}
+  ]},
+  {cat:"niche", sector:"public", t:"Enjoy community outreach and services?", o:[
+    {label:"Yes",w:{S:2,E:1}}, {label:"Sometimes",w:{S:1}}, {label:"No",w:{}}, {label:"None",w:{}}
+  ]},
+  {cat:"niche", sector:"public", t:"Prefer field inspections vs. desk compliance work?", o:[
+    {label:"Field inspections",w:{R:1,C:1}}, {label:"Desk compliance",w:{C:2}}, {label:"Either",w:{C:1}}, {label:"None",w:{}}
+  ]},
+  {cat:"niche", sector:"public", t:"Interested in court/admin/records roles?", o:[
+    {label:"Yes",w:{C:2}}, {label:"Maybe",w:{C:1}}, {label:"No",w:{}}, {label:"None",w:{}}
+  ]},
+  {cat:"niche", sector:"public", t:"Like helping people navigate government services?", o:[
+    {label:"Yes",w:{S:2}}, {label:"Sometimes",w:{S:1}}, {label:"No",w:{}}, {label:"None",w:{}}
+  ]},
+  {cat:"niche", sector:"public", t:"Comfortable in structured, rules-driven settings?", o:[
+    {label:"Yes",w:{C:2}}, {label:"Somewhat",w:{C:1}}, {label:"No",w:{}}, {label:"None",w:{}}
+  ]},
+  {cat:"niche", sector:"public", t:"Okay with rotating shifts / on-call?", o:[
+    {label:"Yes",w:{R:1,C:1}}, {label:"Sometimes",w:{R:1}}, {label:"Prefer fixed hours",w:{C:1}}, {label:"None",w:{}}
+  ]},
+  {cat:"niche", sector:"public", t:"Interested in parks/recreation programming?", o:[
+    {label:"Yes",w:{S:1,E:1}}, {label:"Maybe",w:{S:1}}, {label:"No",w:{}}, {label:"None",w:{}}
+  ]},
+  {cat:"niche", sector:"public", t:"Like coordinating large public events?", o:[
+    {label:"Yes",w:{C:1,E:1}}, {label:"Sometimes",w:{C:1}}, {label:"No",w:{}}, {label:"None",w:{}}
+  ]}
+];
+// =================== END 90-QUESTION BANK ===================
+
+
+    const ALL_QUESTIONS = [ /* 90 items (30 core + 60 niche) */ ];
+    // === Adaptive settings (20 shown) + sector mapping ===
+    const QUIZ_SIZE = 20; // <- you asked for 20 shown
+    
+    // We’ll steer the next question toward likely sectors based on current trait balance.
+    function sectorAffinity(traits){
+      const vec = normalizeTraits(traits); // uses your existing normalizeTraits
+      return {
+        health:    (vec.S||0)*0.55 + (vec.C||0)*0.25 + (vec.I||0)*0.20,
+        business:  (vec.E||0)*0.45 + (vec.C||0)*0.35 + (vec.I||0)*0.20,
+        education: (vec.S||0)*0.45 + (vec.A||0)*0.25 + (vec.C||0)*0.30,
+        tech:      (vec.I||0)*0.55 + (vec.C||0)*0.35 + (vec.R||0)*0.10,
+        trades:    (vec.R||0)*0.60 + (vec.C||0)*0.25 + (vec.S||0)*0.15,
+        creative:  (vec.A||0)*0.70 + (vec.E||0)*0.15 + (vec.S||0)*0.15,
+        public:    (vec.S||0)*0.45 + (vec.C||0)*0.35 + (vec.R||0)*0.20
+      };
+    }
+    
+    // Pre-index the bank for fast picks
+    const coreIndices = ALL_QUESTIONS.map((q,i)=> q.cat==='core' ? i : -1).filter(i=>i>=0);
+    const nicheBySect = {};
+    ALL_QUESTIONS.forEach((q,i)=>{
+      if (q.cat==='niche'){
+        const s = q.sector || 'misc';
+        (nicheBySect[s]||(nicheBySect[s]=[])).push(i);
+      }
+    });
+
 
     // -------------------- ROLES (entry‑friendly + salaries) --------------------
     const ROLES = [
@@ -367,22 +495,140 @@
       {title:"Electrician Apprentice", desc:"Install and fix electrical systems.", traits:{R:0.9,C:0.4}, eduMin:"hs", majors:["apprentice","electrical"], salaryUSD:48000, queries:["Electrician Apprentice","Electrical Apprentice","Trainee Electrician"]},
       {title:"HVAC Technician (Entry)", desc:"Install and service heating and cooling.", traits:{R:0.9,C:0.3}, eduMin:"hs", majors:["hvac","refrigeration"], salaryUSD:52000, queries:["HVAC Technician","HVAC Installer","HVAC Apprentice"]},
       {title:"Junior Graphic Designer", desc:"Make graphics for print or web.", traits:{A:0.9}, eduMin:"somecollege", majors:["design","graphic","art"], salaryUSD:50000, queries:["Junior Graphic Designer","Graphic Designer","Production Artist"]},
-      {title:"Lab Technician (Entry)", desc:"Run tests and record results in labs.", traits:{I:0.7,C:0.6}, eduMin:"assoc", majors:["biology","chemistry","lab","biomedical"], salaryUSD:50000, queries:["Lab Technician","Laboratory Technician","Specimen Processor"]}
-    ];
+      {title:"Lab Technician (Entry)", desc:"Run tests and record results in labs.", traits:{I:0.7,C:0.6}, eduMin:"assoc", majors:["biology","chemistry","lab","biomedical"], salaryUSD:50000, queries:["Lab Technician","Laboratory Technician","Specimen Processor"]},
+      // === MORE CAREER BUCKETS (NO DUPLICATES) ===
+    ROLES.push(
+      // TECH & DATA
+      {title:"Business Intelligence Analyst (Entry)", desc:"Build dashboards and answer data questions.", traits:{I:0.7,C:0.5}, eduMin:"bachelor", majors:["analytics","statistics","data","business","information"], salaryUSD:63000, queries:["BI Analyst Entry Level","Junior Business Intelligence Analyst"]},
+      {title:"Cloud Support Associate", desc:"Help customers troubleshoot cloud services.", traits:{I:0.5,R:0.4,S:0.4}, eduMin:"assoc", majors:["information","computer","cloud","it"], salaryUSD:68000, queries:["Cloud Support Associate","Cloud Support Engineer Entry"]},
+      {title:"Network Technician (Entry)", desc:"Install and maintain routers, switches, cabling.", traits:{R:0.6,C:0.4}, eduMin:"assoc", majors:["network","information","computer"], salaryUSD:54000, queries:["Network Technician Entry Level","Junior Network Technician"]},
+      {title:"Salesforce Administrator (Junior)", desc:"Maintain CRM records, fields, and automations.", traits:{C:0.6,I:0.4,S:0.3}, eduMin:"somecollege", majors:["information","business","systems","crm"], salaryUSD:62000, queries:["Junior Salesforce Administrator","Salesforce Admin Entry"]},
+      {title:"Product Operations Analyst (Entry)", desc:"Keep product data, experiments, and feedback organized.", traits:{C:0.7,I:0.5,E:0.3}, eduMin:"bachelor", majors:["business","economics","information","analytics"], salaryUSD:62000, queries:["Product Operations Analyst Entry","Product Ops Analyst Junior"]},
+      {title:"Risk/Fraud Operations Analyst (Entry)", desc:"Review transactions and patterns to prevent fraud.", traits:{I:0.6,C:0.6}, eduMin:"bachelor", majors:["analytics","economics","finance","information"], salaryUSD:60000, queries:["Fraud Analyst Entry Level","Risk Operations Analyst Junior"]},
+      {title:"Compliance Analyst (Entry)", desc:"Monitor policies, controls, and evidence logs.", traits:{C:0.8,I:0.4}, eduMin:"bachelor", majors:["business","law","accounting","information"], salaryUSD:61000, queries:["Compliance Analyst Entry Level","Junior Compliance Analyst"]},
+      {title:"SEO Specialist (Entry)", desc:"Optimize pages for search and track rankings.", traits:{I:0.5,A:0.4,C:0.4}, eduMin:"somecollege", majors:["marketing","communications","information"], salaryUSD:52000, queries:["SEO Specialist Entry Level","Junior SEO Analyst"]},
+      {title:"Email Marketing Specialist (Entry)", desc:"Build campaigns and report on open/click rates.", traits:{A:0.5,C:0.5,E:0.3}, eduMin:"somecollege", majors:["marketing","communications","business"], salaryUSD:52000, queries:["Email Marketing Specialist Entry","Lifecycle Marketing Coordinator"]},
+      {title:"E-commerce Operations Specialist", desc:"Manage listings, inventory sync, and order issues.", traits:{C:0.7,I:0.4}, eduMin:"somecollege", majors:["business","information","marketing"], salaryUSD:50000, queries:["Ecommerce Operations Specialist","Marketplace Operations Coordinator"]},
+    
+      // BUSINESS, FINANCE & LEGAL
+      {title:"Revenue Operations Analyst (Entry)", desc:"Unify sales/marketing funnels and dashboards.", traits:{I:0.6,C:0.6,E:0.2}, eduMin:"bachelor", majors:["business","analytics","economics"], salaryUSD:62000, queries:["RevOps Analyst Entry","Revenue Operations Analyst Junior"]},
+      {title:"Credit Analyst (Entry)", desc:"Analyze financials and recommend credit limits.", traits:{I:0.7,C:0.6}, eduMin:"bachelor", majors:["finance","accounting","economics","business"], salaryUSD:60000, queries:["Credit Analyst Entry Level","Junior Credit Analyst"]},
+      {title:"Loan Processor (Entry)", desc:"Collect docs and verify loan application data.", traits:{C:0.8,S:0.3}, eduMin:"somecollege", majors:["finance","business"], salaryUSD:52000, queries:["Loan Processor Entry Level","Mortgage Loan Processor Junior"]},
+      {title:"Underwriting Assistant", desc:"Support underwriters with data and quotes.", traits:{C:0.7,I:0.5}, eduMin:"somecollege", majors:["insurance","finance","business"], salaryUSD:50000, queries:["Underwriting Assistant","Assistant Underwriter Entry"]},
+      {title:"Claims Adjuster Trainee", desc:"Investigate claims and coordinate settlements.", traits:{S:0.5,C:0.6}, eduMin:"somecollege", majors:["insurance","business","criminal"], salaryUSD:52000, queries:["Claims Adjuster Trainee","Entry Level Claims Adjuster"]},
+      {title:"Regulatory Affairs Assistant", desc:"Prepare submissions and track approvals.", traits:{C:0.8,I:0.4}, eduMin:"bachelor", majors:["biology","chemistry","pharma","regulatory"], salaryUSD:56000, queries:["Regulatory Affairs Assistant","RA Assistant Entry"]},
+      {title:"Scrum Master (Junior)", desc:"Facilitate standups and remove blockers.", traits:{C:0.6,S:0.5,E:0.4}, eduMin:"somecollege", majors:["business","information","project"], salaryUSD:65000, queries:["Junior Scrum Master","Scrum Master Entry Level"]},
+    
+      // SUPPLY CHAIN, LOGISTICS & TRADE
+      {title:"Inventory Analyst (Entry)", desc:"Forecast and reconcile stock across locations.", traits:{I:0.6,C:0.7}, eduMin:"bachelor", majors:["supply","logistics","industrial","operations","business"], salaryUSD:56000, queries:["Inventory Analyst Entry Level","Junior Inventory Analyst"]},
+      {title:"Freight Broker Trainee", desc:"Match loads and carriers; manage schedules.", traits:{E:0.6,C:0.5}, eduMin:"hs", majors:["logistics","supply","business"], salaryUSD:50000, queries:["Freight Broker Trainee","Logistics Broker Entry"]},
+      {title:"Import/Export Coordinator (Entry)", desc:"Handle documentation and customs scheduling.", traits:{C:0.7,S:0.3}, eduMin:"assoc", majors:["logistics","supply","international","trade"], salaryUSD:52000, queries:["Import Export Coordinator Entry","Logistics Coordinator International"]},
+      {title:"Dispatcher (Transportation)", desc:"Assign routes and communicate with drivers.", traits:{C:0.6,S:0.5}, eduMin:"hs", majors:["logistics","transportation"], salaryUSD:46000, queries:["Transportation Dispatcher","Fleet Dispatcher Entry"]},
+    
+      // BUILT ENVIRONMENT & GEO
+      {title:"CAD Drafter (Junior)", desc:"Create technical drawings from engineer notes.", traits:{A:0.4,C:0.6,R:0.5}, eduMin:"assoc", majors:["cad","drafting","mechanical","civil","architect"], salaryUSD:54000, queries:["CAD Drafter Junior","Drafting Technician Entry"]},
+      {title:"Surveying Technician", desc:"Assist field surveys and process measurements.", traits:{R:0.7,C:0.5}, eduMin:"hs", majors:["survey","civil","geomatics"], salaryUSD:50000, queries:["Survey Technician","Land Survey Technician Entry"]},
+      {title:"GIS Technician (Entry)", desc:"Edit spatial data and produce maps.", traits:{I:0.6,C:0.6}, eduMin:"assoc", majors:["gis","geography","planning","environment"], salaryUSD:52000, queries:["GIS Technician Entry Level","Junior GIS Technician"]},
+      {title:"Construction Estimator Assistant", desc:"Collect takeoffs and vendor quotes.", traits:{C:0.7,I:0.4,R:0.3}, eduMin:"assoc", majors:["construction","civil","estimating"], salaryUSD:56000, queries:["Estimator Assistant Construction","Junior Construction Estimator"]},
+    
+      // HEALTHCARE & LIFE SCIENCES
+      {title:"Radiology Technologist (New Grad)", desc:"Perform imaging studies under supervision.", traits:{S:0.5,C:0.5}, eduMin:"assoc", majors:["radiology","imaging"], salaryUSD:64000, queries:["Radiologic Technologist New Grad","X-Ray Tech Entry"]},
+      {title:"Respiratory Therapist (New Grad)", desc:"Provide respiratory care and treatments.", traits:{S:0.7,C:0.4}, eduMin:"assoc", majors:["respiratory","health"], salaryUSD:68000, queries:["Respiratory Therapist New Grad","RRT Entry Level"]},
+      {title:"Phlebotomist", desc:"Draw blood samples and ensure proper labeling.", traits:{S:0.6,C:0.4}, eduMin:"cert", majors:["medical","phlebotomy","health"], salaryUSD:38000, queries:["Phlebotomist","Phlebotomy Technician Entry"]},
+      {title:"Health Information Technician", desc:"Manage medical records and coding workflows.", traits:{C:0.8}, eduMin:"assoc", majors:["health information","him","coding"], salaryUSD:50000, queries:["Health Information Technician","Medical Records Technician"]},
+      {title:"Medical Billing & Coding Specialist", desc:"Translate procedures into billing codes.", traits:{C:0.8}, eduMin:"cert", majors:["coding","billing","health information"], salaryUSD:46000, queries:["Medical Billing and Coding Specialist","Coder Entry Level"]},
+      {title:"EMT (Basic)", desc:"Provide emergency care and patient transport.", traits:{S:0.7,R:0.5}, eduMin:"cert", majors:["emt","paramedic","health"], salaryUSD:38000, queries:["EMT Basic","Emergency Medical Technician Entry"]},
+      {title:"Clinical Lab Animal Care Tech", desc:"Care for research animals and keep records.", traits:{S:0.5,C:0.5,R:0.4}, eduMin:"hs", majors:["biology","animal","veterinary"], salaryUSD:42000, queries:["Animal Care Technician Research","Lab Animal Technician Entry"]},
+    
+      // ENERGY, ENVIRONMENT & FIELD
+      {title:"Solar Installer (Entry)", desc:"Assemble and mount solar arrays safely.", traits:{R:0.9,C:0.3}, eduMin:"hs", majors:["solar","electrical","renewable"], salaryUSD:52000, queries:["Solar Installer Entry Level","PV Installer Trainee"]},
+      {title:"Wind Turbine Technician (Trainee)", desc:"Assist with maintenance at height.", traits:{R:0.9,C:0.3}, eduMin:"assoc", majors:["wind","mechanical","electrical"], salaryUSD:60000, queries:["Wind Turbine Technician Trainee","Wind Tech Entry"]},
+      {title:"Sustainability Coordinator (Entry)", desc:"Track waste, energy, and ESG projects.", traits:{I:0.5,C:0.6}, eduMin:"bachelor", majors:["sustainability","environment","policy"], salaryUSD:54000, queries:["Sustainability Coordinator Entry Level","ESG Coordinator Junior"]},
+      {title:"Forestry Technician", desc:"Support forest surveys and conservation work.", traits:{R:0.7,I:0.4}, eduMin:"hs", majors:["forestry","environment","biology"], salaryUSD:46000, queries:["Forestry Technician","Forest Technician Entry"]},
+    
+      // REAL ESTATE, FACILITIES & SAFETY
+      {title:"Property Management Assistant", desc:"Handle work orders, leasing files, and vendors.", traits:{C:0.6,S:0.4}, eduMin:"hs", majors:["real estate","business"], salaryUSD:46000, queries:["Property Management Assistant","Assistant Property Manager Entry"]},
+      {title:"Home/Building Inspector Trainee", desc:"Shadow inspections and write simple reports.", traits:{R:0.6,C:0.6}, eduMin:"hs", majors:["construction","inspection","real estate"], salaryUSD:52000, queries:["Home Inspector Trainee","Building Inspector Entry"]},
+      {title:"Home Energy Auditor (Entry)", desc:"Perform basic audits and recommend retrofits.", traits:{I:0.5,R:0.5}, eduMin:"somecollege", majors:["energy","construction","environment"], salaryUSD:52000, queries:["Energy Auditor Entry Level","Residential Energy Auditor"]},
+    
+      // EDUCATION, GOV & COMMUNITY
+      {title:"Admissions Counselor (Entry)", desc:"Recruit and guide prospective students.", traits:{E:0.6,S:0.6}, eduMin:"bachelor", majors:["education","communications","business"], salaryUSD:47000, queries:["Admissions Counselor Entry","Enrollment Counselor Junior"]},
+      {title:"Financial Aid Counselor (Entry)", desc:"Advise students on aid options and paperwork.", traits:{S:0.7,C:0.6}, eduMin:"bachelor", majors:["education","business","finance"], salaryUSD:47000, queries:["Financial Aid Counselor Entry Level","Financial Aid Advisor Junior"]},
+      {title:"Case Management Aide", desc:"Assist with client intakes and referrals.", traits:{S:0.8,C:0.4}, eduMin:"hs", majors:["social","psychology","public"], salaryUSD:42000, queries:["Case Management Aide","Case Aide Entry"]},
+      {title:"Housing Specialist (Entry)", desc:"Process applications and coordinate placements.", traits:{S:0.7,C:0.5}, eduMin:"somecollege", majors:["public","social","policy"], salaryUSD:46000, queries:["Housing Specialist Entry Level","Housing Coordinator Junior"]},
+      {title:"Public Safety Telecommunicator (911 Dispatcher)", desc:"Answer emergency calls and dispatch units.", traits:{C:0.6,S:0.5}, eduMin:"hs", majors:["criminal","public","communications"], salaryUSD:46000, queries:["911 Dispatcher","Public Safety Telecommunicator Entry"]},
+    
+      // MEDIA, ARTS & EVENTS
+      {title:"Broadcast Production Assistant", desc:"Support live shoots and studio operations.", traits:{A:0.5,R:0.4,C:0.4}, eduMin:"somecollege", majors:["film","media","communications"], salaryUSD:42000, queries:["Production Assistant Broadcast","Studio Production Assistant"]},
+      {title:"Sound Technician (Entry)", desc:"Set up audio gear and run basic mixes.", traits:{R:0.6,A:0.4}, eduMin:"somecollege", majors:["audio","sound","music","media"], salaryUSD:44000, queries:["Sound Technician Entry Level","Audio Technician Junior"]},
+      {title:"Lighting Technician (Entry)", desc:"Rig and operate lighting for events.", traits:{R:0.7,C:0.3}, eduMin:"hs", majors:["theatre","stage","lighting"], salaryUSD:44000, queries:["Lighting Technician Entry","Stage Lighting Tech"]},
+      {title:"Motion Graphics Designer (Jr)", desc:"Animate titles and short explainers.", traits:{A:0.9,I:0.3}, eduMin:"somecollege", majors:["design","motion","animation","media"], salaryUSD:56000, queries:["Junior Motion Designer","Motion Graphics Designer Entry"]},
+      {title:"3D Modeler (Junior)", desc:"Create basic 3D assets for games/visualization.", traits:{A:0.8,I:0.3}, eduMin:"somecollege", majors:["3d","animation","game","design"], salaryUSD:56000, queries:["3D Modeler Junior","3D Artist Entry"]}
+    );
 
     const EDU_RANK = {hs:0, somecollege:0.3, cert:0.2, assoc:0.4, bachelor:0.6, master:0.8, phd:1};
 
-    // -------------------- QUIZ ENGINE --------------------
+        // -------------------- ADAPTIVE QUIZ ENGINE (20 questions shown) --------------------
     const qText = document.getElementById('q-text');
     const qOpts = document.getElementById('q-opts');
     const qCounter = document.getElementById('q-counter');
     const bar = document.getElementById('bar');
     const backBtn = document.getElementById('backBtn');
     const nextBtn = document.getElementById('nextBtn');
-
+    
+    // State (note: TOTAL is now fixed to 20 via QUIZ_SIZE)
+    let QUESTIONS = [];             // the 20 shown this session (built on the fly)
+    const TOTAL = QUIZ_SIZE;        // <<< replaces: const TOTAL = QUESTIONS.length; // 30
     let idx = 0;
-    const answers = new Array(TOTAL).fill(null);
-
+    let answers = [];
+    const asked = new Set();        // indexes into ALL_QUESTIONS
+    
+    function addQuestionByIndex(i){
+      QUESTIONS.push(ALL_QUESTIONS[i]);
+      answers.push(null);
+      asked.add(i);
+    }
+    
+    // Seed with a few broad core questions to get signal
+    function seedQuestions(){
+      QUESTIONS = [];
+      answers = [];
+      asked.clear();
+    
+      const seedCount = Math.min(5, coreIndices.length);
+      for (let k=0;k<seedCount;k++) addQuestionByIndex(coreIndices[k]);
+    }
+    
+    function recomputeTraitScores(){
+      const scores = {R:0,I:0,A:0,S:0,E:0,C:0};
+      QUESTIONS.forEach((q, qi)=>{
+        const sel = answers[qi];
+        if (sel !== null && q.o && q.o[sel]){
+          const w = q.o[sel].w || {};
+          for (const k in w){ scores[k] += w[k]; }
+        }
+      });
+      return scores;
+    }
+    
+    function pickNextQuestionIndex(){
+      // Keep adding a few more core items until we reach 8 total, then niche by sector
+      if (QUESTIONS.length < 8){
+        for (const i of coreIndices){ if (!asked.has(i)) return i; }
+      }
+      const aff = sectorAffinity(recomputeTraitScores());
+      const sectors = Object.keys(aff).sort((a,b)=> aff[b]-aff[a]);
+      for (const s of sectors){
+        const pool = nicheBySect[s] || [];
+        for (const i of pool){ if (!asked.has(i)) return i; }
+      }
+      // fallback: remaining core
+      for (const i of coreIndices){ if (!asked.has(i)) return i; }
+      // last resort: anything unseen
+      for (let i=0;i<ALL_QUESTIONS.length;i++){ if (!asked.has(i)) return i; }
+      return -1;
+    }
+    
     function renderQuestion(){
       const q = QUESTIONS[idx];
       qText.textContent = q.t;
@@ -401,36 +647,56 @@
       nextBtn.disabled = answers[idx] === null;
       bar.style.width = ((idx)/TOTAL)*100 + '%';
     }
-
+    
     function selectOption(i){
+      const changed = answers[idx] !== i;
       answers[idx] = i;
       document.querySelectorAll('#q-opts .opt').forEach((el, j)=>{
         el.classList.toggle('selected', j === i);
       });
       nextBtn.disabled = false;
+    
+      // If the user changed an earlier answer, rebuild the tail adaptively
+      if (changed && idx < QUESTIONS.length - 1){
+        while (QUESTIONS.length > idx + 1){
+          const removed = QUESTIONS.pop();
+          answers.pop();
+          const ri = ALL_QUESTIONS.findIndex(x=> x.t === removed.t);
+          if (ri >= 0) asked.delete(ri);
+        }
+      }
     }
-
+    
     function goNext(){
       if (idx < TOTAL-1){
+        if (idx === QUESTIONS.length - 1){
+          const nextIdx = pickNextQuestionIndex();
+          if (nextIdx >= 0) addQuestionByIndex(nextIdx);
+        }
         idx++;
         renderQuestion();
       } else {
+        // finished → go to profile stage
         bar.style.width = '100%';
         document.getElementById('stage-questions').style.display='none';
         document.getElementById('stage-profile').style.display='block';
       }
     }
-
+    
     function goBack(){
       if (idx>0){
         idx--;
         renderQuestion();
       }
     }
-
+    
     backBtn.addEventListener('click', goBack);
     nextBtn.addEventListener('click', goNext);
-
+    
+    // Boot
+    seedQuestions();
+    renderQuestion();
+    // -------------------- END ADAPTIVE ENGINE --------------------
     // -------------------- MATCHING ENGINE --------------------
     function recomputeTraitScores(){
       const scores = {R:0,I:0,A:0,S:0,E:0,C:0};

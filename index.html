@@ -478,93 +478,97 @@ const ALL_QUESTIONS = [
     });
 
 
-    // -------------------- ROLES (entry‑friendly + salaries) --------------------
-    const ROLES = [
-      {title:"Data Analyst (Entry)", desc:"Look at numbers and find patterns.", traits:{I:0.9,C:0.6}, eduMin:"assoc", majors:["data","computer","information","statistics","math","analytics","economics"], salaryUSD:55000, queries:["Data Analyst","Junior Data Analyst","Entry Level Data Analyst"]},
-      {title:"Business Assistant", desc:"Help teams improve how they work.", traits:{I:0.6,C:0.8,S:0.3}, eduMin:"bachelor", majors:["business","information","systems","supply","operations"], salaryUSD:48000, queries:["Business Assistant","Operations Assistant"]},
-      {title:"Project Assistant", desc:"Help plan tasks and keep projects on track.", traits:{C:0.8,E:0.4,S:0.3}, eduMin:"assoc", majors:["business","management","project"], salaryUSD:46000, queries:["Project Assistant","Project Coordinator","Junior Project Manager"]},
-      {title:"Operations Assistant", desc:"Keep daily operations running.", traits:{C:0.8,I:0.3}, eduMin:"hs", majors:["business","operations","logistics"], salaryUSD:42000, queries:["Operations Assistant","Logistics Coordinator"]},
-      {title:"Customer Support Rep", desc:"Help and support customers.", traits:{S:0.8,E:0.4}, eduMin:"hs", majors:["business","communications","marketing"], salaryUSD:40000, queries:["Customer Support Representative","Customer Success Representative"]},
-      {title:"Sales Representative (Entry)", desc:"Talk to people and sell products.", traits:{E:0.9,S:0.4}, eduMin:"hs", majors:["business","marketing","communications"], salaryUSD:42000, queries:["Entry Level Sales","Sales Development Representative","Business Development Representative"]},
-      {title:"Marketing Assistant", desc:"Support social media and campaigns.", traits:{A:0.6,E:0.4,C:0.3}, eduMin:"assoc", majors:["marketing","communications","journalism","design"], salaryUSD:43000, queries:["Marketing Assistant","Marketing Coordinator","Digital Marketing Assistant"]},
-      {title:"Junior UX/UI Designer", desc:"Design easy‑to‑use screens.", traits:{A:0.9,I:0.3}, eduMin:"somecollege", majors:["design","hci","human","interaction","graphic","art"], salaryUSD:65000, queries:["Junior UX Designer","Entry Level UX Designer","Product Designer"]},
-      {title:"IT Support (Entry)", desc:"Help people fix tech issues.", traits:{R:0.6,S:0.4,C:0.3}, eduMin:"hs", majors:["it","information","computer","network"], salaryUSD:42000, queries:["IT Support","Help Desk","Desktop Support"]},
-      {title:"Supply Chain Assistant", desc:"Track materials and deliveries.", traits:{I:0.6,C:0.7}, eduMin:"bachelor", majors:["supply","logistics","industrial","operations"], salaryUSD:46000, queries:["Supply Chain Assistant","Logistics Analyst (Entry)"]},
-      {title:"Registered Nurse (New Grad)", desc:"Care for patients with a team.", traits:{S:0.9,C:0.4}, eduMin:"assoc", majors:["nursing","bsn"], salaryUSD:78000, queries:["Registered Nurse","New Grad RN","Entry Level RN"]},
-      {title:"Elementary Teacher (Entry)", desc:"Teach and support young students.", traits:{S:0.8,A:0.3,C:0.4}, eduMin:"bachelor", majors:["education","teaching"], salaryUSD:58000, queries:["Elementary School Teacher","Teacher","Substitute Teacher"]},
-      {title:"Electrician Apprentice", desc:"Install and fix electrical systems.", traits:{R:0.9,C:0.4}, eduMin:"hs", majors:["apprentice","electrical"], salaryUSD:48000, queries:["Electrician Apprentice","Electrical Apprentice","Trainee Electrician"]},
-      {title:"HVAC Technician (Entry)", desc:"Install and service heating and cooling.", traits:{R:0.9,C:0.3}, eduMin:"hs", majors:["hvac","refrigeration"], salaryUSD:52000, queries:["HVAC Technician","HVAC Installer","HVAC Apprentice"]},
-      {title:"Junior Graphic Designer", desc:"Make graphics for print or web.", traits:{A:0.9}, eduMin:"somecollege", majors:["design","graphic","art"], salaryUSD:50000, queries:["Junior Graphic Designer","Graphic Designer","Production Artist"]},
-      {title:"Lab Technician (Entry)", desc:"Run tests and record results in labs.", traits:{I:0.7,C:0.6}, eduMin:"assoc", majors:["biology","chemistry","lab","biomedical"], salaryUSD:50000, queries:["Lab Technician","Laboratory Technician","Specimen Processor"]},
-      // === MORE CAREER BUCKETS (NO DUPLICATES) ===
+// -------------------- ROLES (entry-friendly + salaries) --------------------
+const ROLES = [
+  {title:"Data Analyst (Entry)", desc:"Look at numbers and find patterns.", traits:{I:0.9,C:0.6}, eduMin:"assoc", majors:["data","computer","information","statistics","math","analytics","economics"], salaryUSD:55000, queries:["Data Analyst","Junior Data Analyst","Entry Level Data Analyst"]},
+  {title:"Business Assistant", desc:"Help teams improve how they work.", traits:{I:0.6,C:0.8,S:0.3}, eduMin:"bachelor", majors:["business","information","systems","supply","operations"], salaryUSD:48000, queries:["Business Assistant","Operations Assistant"]},
+  {title:"Project Assistant", desc:"Help plan tasks and keep projects on track.", traits:{C:0.8,E:0.4,S:0.3}, eduMin:"assoc", majors:["business","management","project"], salaryUSD:46000, queries:["Project Assistant","Project Coordinator","Junior Project Manager"]},
+  {title:"Operations Assistant", desc:"Keep daily operations running.", traits:{C:0.8,I:0.3}, eduMin:"hs", majors:["business","operations","logistics"], salaryUSD:42000, queries:["Operations Assistant","Logistics Coordinator"]},
+  {title:"Customer Support Rep", desc:"Help and support customers.", traits:{S:0.8,E:0.4}, eduMin:"hs", majors:["business","communications","marketing"], salaryUSD:40000, queries:["Customer Support Representative","Customer Success Representative"]},
+  {title:"Sales Representative (Entry)", desc:"Talk to people and sell products.", traits:{E:0.9,S:0.4}, eduMin:"hs", majors:["business","marketing","communications"], salaryUSD:42000, queries:["Entry Level Sales","Sales Development Representative","Business Development Representative"]},
+  {title:"Marketing Assistant", desc:"Support social media and campaigns.", traits:{A:0.6,E:0.4,C:0.3}, eduMin:"assoc", majors:["marketing","communications","journalism","design"], salaryUSD:43000, queries:["Marketing Assistant","Marketing Coordinator","Digital Marketing Assistant"]},
+  {title:"Junior UX/UI Designer", desc:"Design easy-to-use screens.", traits:{A:0.9,I:0.3}, eduMin:"somecollege", majors:["design","hci","human","interaction","graphic","art"], salaryUSD:65000, queries:["Junior UX Designer","Entry Level UX Designer","Product Designer"]},
+  {title:"IT Support (Entry)", desc:"Help people fix tech issues.", traits:{R:0.6,S:0.4,C:0.3}, eduMin:"hs", majors:["it","information","computer","network"], salaryUSD:42000, queries:["IT Support","Help Desk","Desktop Support"]},
+  {title:"Supply Chain Assistant", desc:"Track materials and deliveries.", traits:{I:0.6,C:0.7}, eduMin:"bachelor", majors:["supply","logistics","industrial","operations"], salaryUSD:46000, queries:["Supply Chain Assistant","Logistics Analyst (Entry)"]},
+  {title:"Registered Nurse (New Grad)", desc:"Care for patients with a team.", traits:{S:0.9,C:0.4}, eduMin:"assoc", majors:["nursing","bsn"], salaryUSD:78000, queries:["Registered Nurse","New Grad RN","Entry Level RN"]},
+  {title:"Elementary Teacher (Entry)", desc:"Teach and support young students.", traits:{S:0.8,A:0.3,C:0.4}, eduMin:"bachelor", majors:["education","teaching"], salaryUSD:58000, queries:["Elementary School Teacher","Teacher","Substitute Teacher"]},
+  {title:"Electrician Apprentice", desc:"Install and fix electrical systems.", traits:{R:0.9,C:0.4}, eduMin:"hs", majors:["apprentice","electrical"], salaryUSD:48000, queries:["Electrician Apprentice","Electrical Apprentice","Trainee Electrician"]},
+  {title:"HVAC Technician (Entry)", desc:"Install and service heating and cooling.", traits:{R:0.9,C:0.3}, eduMin:"hs", majors:["hvac","refrigeration"], salaryUSD:52000, queries:["HVAC Technician","HVAC Installer","HVAC Apprentice"]},
+  {title:"Junior Graphic Designer", desc:"Make graphics for print or web.", traits:{A:0.9}, eduMin:"somecollege", majors:["design","graphic","art"], salaryUSD:50000, queries:["Junior Graphic Designer","Graphic Designer","Production Artist"]},
+  {title:"Lab Technician (Entry)", desc:"Run tests and record results in labs.", traits:{I:0.7,C:0.6}, eduMin:"assoc", majors:["biology","chemistry","lab","biomedical"], salaryUSD:50000, queries:["Lab Technician","Laboratory Technician","Specimen Processor"]},
 
-      // TECH & DATA //
-      {title:"Business Intelligence Analyst (Entry)", desc:"Build dashboards and answer data questions.", traits:{I:0.7,C:0.5}, eduMin:"bachelor", majors:["analytics","statistics","data","business","information"], salaryUSD:63000, queries:["BI Analyst Entry Level","Junior Business Intelligence Analyst"]},
-      {title:"Cloud Support Associate", desc:"Help customers troubleshoot cloud services.", traits:{I:0.5,R:0.4,S:0.4}, eduMin:"assoc", majors:["information","computer","cloud","it"], salaryUSD:68000, queries:["Cloud Support Associate","Cloud Support Engineer Entry"]},
-      {title:"Network Technician (Entry)", desc:"Install and maintain routers, switches, cabling.", traits:{R:0.6,C:0.4}, eduMin:"assoc", majors:["network","information","computer"], salaryUSD:54000, queries:["Network Technician Entry Level","Junior Network Technician"]},
-      {title:"Salesforce Administrator (Junior)", desc:"Maintain CRM records, fields, and automations.", traits:{C:0.6,I:0.4,S:0.3}, eduMin:"somecollege", majors:["information","business","systems","crm"], salaryUSD:62000, queries:["Junior Salesforce Administrator","Salesforce Admin Entry"]},
-      {title:"Product Operations Analyst (Entry)", desc:"Keep product data, experiments, and feedback organized.", traits:{C:0.7,I:0.5,E:0.3}, eduMin:"bachelor", majors:["business","economics","information","analytics"], salaryUSD:62000, queries:["Product Operations Analyst Entry","Product Ops Analyst Junior"]},
-      {title:"Risk/Fraud Operations Analyst (Entry)", desc:"Review transactions and patterns to prevent fraud.", traits:{I:0.6,C:0.6}, eduMin:"bachelor", majors:["analytics","economics","finance","information"], salaryUSD:60000, queries:["Fraud Analyst Entry Level","Risk Operations Analyst Junior"]},
-      {title:"Compliance Analyst (Entry)", desc:"Monitor policies, controls, and evidence logs.", traits:{C:0.8,I:0.4}, eduMin:"bachelor", majors:["business","law","accounting","information"], salaryUSD:61000, queries:["Compliance Analyst Entry Level","Junior Compliance Analyst"]},
-      {title:"SEO Specialist (Entry)", desc:"Optimize pages for search and track rankings.", traits:{I:0.5,A:0.4,C:0.4}, eduMin:"somecollege", majors:["marketing","communications","information"], salaryUSD:52000, queries:["SEO Specialist Entry Level","Junior SEO Analyst"]},
-      {title:"Email Marketing Specialist (Entry)", desc:"Build campaigns and report on open/click rates.", traits:{A:0.5,C:0.5,E:0.3}, eduMin:"somecollege", majors:["marketing","communications","business"], salaryUSD:52000, queries:["Email Marketing Specialist Entry","Lifecycle Marketing Coordinator"]},
-      {title:"E-commerce Operations Specialist", desc:"Manage listings, inventory sync, and order issues.", traits:{C:0.7,I:0.4}, eduMin:"somecollege", majors:["business","information","marketing"], salaryUSD:50000, queries:["Ecommerce Operations Specialist","Marketplace Operations Coordinator"]},
+  // === MORE CAREER BUCKETS (NO DUPLICATES) ===
+  // TECH & DATA
+  {title:"Business Intelligence Analyst (Entry)", desc:"Build dashboards and answer data questions.", traits:{I:0.7,C:0.5}, eduMin:"bachelor", majors:["analytics","statistics","data","business","information"], salaryUSD:63000, queries:["BI Analyst Entry Level","Junior Business Intelligence Analyst"]},
+  {title:"Cloud Support Associate", desc:"Help customers troubleshoot cloud services.", traits:{I:0.5,R:0.4,S:0.4}, eduMin:"assoc", majors:["information","computer","cloud","it"], salaryUSD:68000, queries:["Cloud Support Associate","Cloud Support Engineer Entry"]},
+  {title:"Network Technician (Entry)", desc:"Install and maintain routers, switches, cabling.", traits:{R:0.6,C:0.4}, eduMin:"assoc", majors:["network","information","computer"], salaryUSD:54000, queries:["Network Technician Entry Level","Junior Network Technician"]},
+  {title:"Salesforce Administrator (Junior)", desc:"Maintain CRM records, fields, and automations.", traits:{C:0.6,I:0.4,S:0.3}, eduMin:"somecollege", majors:["information","business","systems","crm"], salaryUSD:62000, queries:["Junior Salesforce Administrator","Salesforce Admin Entry"]},
+  {title:"Product Operations Analyst (Entry)", desc:"Keep product data, experiments, and feedback organized.", traits:{C:0.7,I:0.5,E:0.3}, eduMin:"bachelor", majors:["business","economics","information","analytics"], salaryUSD:62000, queries:["Product Operations Analyst Entry","Product Ops Analyst Junior"]},
+  {title:"Risk/Fraud Operations Analyst (Entry)", desc:"Review transactions and patterns to prevent fraud.", traits:{I:0.6,C:0.6}, eduMin:"bachelor", majors:["analytics","economics","finance","information"], salaryUSD:60000, queries:["Fraud Analyst Entry Level","Risk Operations Analyst Junior"]},
+  {title:"Compliance Analyst (Entry)", desc:"Monitor policies, controls, and evidence logs.", traits:{C:0.8,I:0.4}, eduMin:"bachelor", majors:["business","law","accounting","information"], salaryUSD:61000, queries:["Compliance Analyst Entry Level","Junior Compliance Analyst"]},
+  {title:"SEO Specialist (Entry)", desc:"Optimize pages for search and track rankings.", traits:{I:0.5,A:0.4,C:0.4}, eduMin:"somecollege", majors:["marketing","communications","information"], salaryUSD:52000, queries:["SEO Specialist Entry Level","Junior SEO Analyst"]},
+  {title:"Email Marketing Specialist (Entry)", desc:"Build campaigns and report on open/click rates.", traits:{A:0.5,C:0.5,E:0.3}, eduMin:"somecollege", majors:["marketing","communications","business"], salaryUSD:52000, queries:["Email Marketing Specialist Entry","Lifecycle Marketing Coordinator"]},
+  {title:"E-commerce Operations Specialist", desc:"Manage listings, inventory sync, and order issues.", traits:{C:0.7,I:0.4}, eduMin:"somecollege", majors:["business","information","marketing"], salaryUSD:50000, queries:["Ecommerce Operations Specialist","Marketplace Operations Coordinator"]},
+
+  // BUSINESS, FINANCE & LEGAL
+  {title:"Revenue Operations Analyst (Entry)", desc:"Unify sales/marketing funnels and dashboards.", traits:{I:0.6,C:0.6,E:0.2}, eduMin:"bachelor", majors:["business","analytics","economics"], salaryUSD:62000, queries:["RevOps Analyst Entry","Revenue Operations Analyst Junior"]},
+  {title:"Credit Analyst (Entry)", desc:"Analyze financials and recommend credit limits.", traits:{I:0.7,C:0.6}, eduMin:"bachelor", majors:["finance","accounting","economics","business"], salaryUSD:60000, queries:["Credit Analyst Entry Level","Junior Credit Analyst"]},
+  {title:"Loan Processor (Entry)", desc:"Collect docs and verify loan application data.", traits:{C:0.8,S:0.3}, eduMin:"somecollege", majors:["finance","business"], salaryUSD:52000, queries:["Loan Processor Entry Level","Mortgage Loan Processor Junior"]},
+  {title:"Underwriting Assistant", desc:"Support underwriters with data and quotes.", traits:{C:0.7,I:0.5}, eduMin:"somecollege", majors:["insurance","finance","business"], salaryUSD:50000, queries:["Underwriting Assistant","Assistant Underwriter Entry"]},
+  {title:"Claims Adjuster Trainee", desc:"Investigate claims and coordinate settlements.", traits:{S:0.5,C:0.6}, eduMin:"somecollege", majors:["insurance","business","criminal"], salaryUSD:52000, queries:["Claims Adjuster Trainee","Entry Level Claims Adjuster"]},
+  {title:"Regulatory Affairs Assistant", desc:"Prepare submissions and track approvals.", traits:{C:0.8,I:0.4}, eduMin:"bachelor", majors:["biology","chemistry","pharma","regulatory"], salaryUSD:56000, queries:["Regulatory Affairs Assistant","RA Assistant Entry"]},
+  {title:"Scrum Master (Junior)", desc:"Facilitate standups and remove blockers.", traits:{C:0.6,S:0.5,E:0.4}, eduMin:"somecollege", majors:["business","information","project"], salaryUSD:65000, queries:["Junior Scrum Master","Scrum Master Entry Level"]},
+
+  // SUPPLY CHAIN, LOGISTICS & TRADE
+  {title:"Inventory Analyst (Entry)", desc:"Forecast and reconcile stock across locations.", traits:{I:0.6,C:0.7}, eduMin:"bachelor", majors:["supply","logistics","industrial","operations","business"], salaryUSD:56000, queries:["Inventory Analyst Entry Level","Junior Inventory Analyst"]},
+  {title:"Freight Broker Trainee", desc:"Match loads and carriers; manage schedules.", traits:{E:0.6,C:0.5}, eduMin:"hs", majors:["logistics","supply","business"], salaryUSD:50000, queries:["Freight Broker Trainee","Logistics Broker Entry"]},
+  {title:"Import/Export Coordinator (Entry)", desc:"Handle documentation and customs scheduling.", traits:{C:0.7,S:0.3}, eduMin:"assoc", majors:["logistics","supply","international","trade"], salaryUSD:52000, queries:["Import Export Coordinator Entry","Logistics Coordinator International"]},
+  {title:"Dispatcher (Transportation)", desc:"Assign routes and communicate with drivers.", traits:{C:0.6,S:0.5}, eduMin:"hs", majors:["logistics","transportation"], salaryUSD:46000, queries:["Transportation Dispatcher","Fleet Dispatcher Entry"]},
+
+  // BUILT ENVIRONMENT & GEO
+  {title:"CAD Drafter (Junior)", desc:"Create technical drawings from engineer notes.", traits:{A:0.4,C:0.6,R:0.5}, eduMin:"assoc", majors:["cad","drafting","mechanical","civil","architect"], salaryUSD:54000, queries:["CAD Drafter Junior","Drafting Technician Entry"]},
+  {title:"Surveying Technician", desc:"Assist field surveys and process measurements.", traits:{R:0.7,C:0.5}, eduMin:"hs", majors:["survey","civil","geomatics"], salaryUSD:50000, queries:["Survey Technician","Land Survey Technician Entry"]},
+  {title:"GIS Technician (Entry)", desc:"Edit spatial data and produce maps.", traits:{I:0.6,C:0.6}, eduMin:"assoc", majors:["gis","geography","planning","environment"], salaryUSD:52000, queries:["GIS Technician Entry Level","Junior GIS Technician"]},
+  {title:"Construction Estimator Assistant", desc:"Collect takeoffs and vendor quotes.", traits:{C:0.7,I:0.4,R:0.3}, eduMin:"assoc", majors:["construction","civil","estimating"], salaryUSD:56000, queries:["Estimator Assistant Construction","Junior Construction Estimator"]},
+
+  // HEALTHCARE & LIFE SCIENCES
+  {title:"Radiology Technologist (New Grad)", desc:"Perform imaging studies under supervision.", traits:{S:0.5,C:0.5}, eduMin:"assoc", majors:["radiology","imaging"], salaryUSD:64000, queries:["Radiologic Technologist New Grad","X-Ray Tech Entry"]},
+  {title:"Respiratory Therapist (New Grad)", desc:"Provide respiratory care and treatments.", traits:{S:0.7,C:0.4}, eduMin:"assoc", majors:["respiratory","health"], salaryUSD:68000, queries:["Respiratory Therapist New Grad","RRT Entry Level"]},
+  {title:"Phlebotomist", desc:"Draw blood samples and ensure proper labeling.", traits:{S:0.6,C:0.4}, eduMin:"cert", majors:["medical","phlebotomy","health"], salaryUSD:38000, queries:["Phlebotomist","Phlebotomy Technician Entry"]},
+  {title:"Health Information Technician", desc:"Manage medical records and coding workflows.", traits:{C:0.8}, eduMin:"assoc", majors:["health information","him","coding"], salaryUSD:50000, queries:["Health Information Technician","Medical Records Technician"]},
+  {title:"Medical Billing & Coding Specialist", desc:"Translate procedures into billing codes.", traits:{C:0.8}, eduMin:"cert", majors:["coding","billing","health information"], salaryUSD:46000, queries:["Medical Billing and Coding Specialist","Coder Entry Level"]},
+  {title:"EMT (Basic)", desc:"Provide emergency care and patient transport.", traits:{S:0.7,R:0.5}, eduMin:"cert", majors:["emt","paramedic","health"], salaryUSD:38000, queries:["EMT Basic","Emergency Medical Technician Entry"]},
+  {title:"Clinical Lab Animal Care Tech", desc:"Care for research animals and keep records.", traits:{S:0.5,C:0.5,R:0.4}, eduMin:"hs", majors:["biology","animal","veterinary"], salaryUSD:42000, queries:["Animal Care Technician Research","Lab Animal Technician Entry"]},
+
+  // ENERGY, ENVIRONMENT & FIELD
+  {title:"Solar Installer (Entry)", desc:"Assemble and mount solar arrays safely.", traits:{R:0.9,C:0.3}, eduMin:"hs", majors:["solar","electrical","renewable"], salaryUSD:52000, queries:["Solar Installer Entry Level","PV Installer Trainee"]},
+  {title:"Wind Turbine Technician (Trainee)", desc:"Assist with maintenance at height.", traits:{R:0.9,C:0.3}, eduMin:"assoc", majors:["wind","mechanical","electrical"], salaryUSD:60000, queries:["Wind Turbine Technician Trainee","Wind Tech Entry"]},
+  {title:"Sustainability Coordinator (Entry)", desc:"Track waste, energy, and ESG projects.", traits:{I:0.5,C:0.6}, eduMin:"bachelor", majors:["sustainability","environment","policy"], salaryUSD:54000, queries:["Sustainability Coordinator Entry Level","ESG Coordinator Junior"]},
+  {title:"Forestry Technician", desc:"Support forest surveys and conservation work.", traits:{R:0.7,I:0.4}, eduMin:"hs", majors:["forestry","environment","biology"], salaryUSD:46000, queries:["Forestry Technician","Forest Technician Entry"]},
+
+  // REAL ESTATE, FACILITIES & SAFETY
+  {title:"Property Management Assistant", desc:"Handle work orders, leasing files, and vendors.", traits:{C:0.6,S:0.4}, eduMin:"hs", majors:["real estate","business"], salaryUSD:46000, queries:["Property Management Assistant","Assistant Property Manager Entry"]},
+  {title:"Home/Building Inspector Trainee", desc:"Shadow inspections and write simple reports.", traits:{R:0.6,C:0.6}, eduMin:"hs", majors:["construction","inspection","real estate"], salaryUSD:52000, queries:["Home Inspector Trainee","Building Inspector Entry"]},
+  {title:"Home Energy Auditor (Entry)", desc:"Perform basic audits and recommend retrofits.", traits:{I:0.5,R:0.5}, eduMin:"somecollege", majors:["energy","construction","environment"], salaryUSD:52000, queries:["Energy Auditor Entry Level","Residential Energy Auditor"]},
+
+  // EDUCATION, GOV & COMMUNITY
+  {title:"Admissions Counselor (Entry)", desc:"Recruit and guide prospective students.", traits:{E:0.6,S:0.6}, eduMin:"bachelor", majors:["education","communications","business"], salaryUSD:47000, queries:["Admissions Counselor Entry","Enrollment Counselor Junior"]},
+  {title:"Financial Aid Counselor (Entry)", desc:"Advise students on aid options and paperwork.", traits:{S:0.7,C:0.6}, eduMin:"bachelor", majors:["education","business","finance"], salaryUSD:47000, queries:["Financial Aid Counselor Entry Level","Financial Aid Advisor Junior"]},
+  {title:"Case Management Aide", desc:"Assist with client intakes and referrals.", traits:{S:0.8,C:0.4}, eduMin:"hs", majors:["social","psychology","public"], salaryUSD:42000, queries:["Case Management Aide","Case Aide Entry"]},
+  {title:"Housing Specialist (Entry)", desc:"Process applications and coordinate placements.", traits:{S:0.7,C:0.5}, eduMin:"somecollege", majors:["public","social","policy"], salaryUSD:46000, queries:["Housing Specialist Entry Level","Housing Coordinator Junior"]},
+  {title:"Public Safety Telecommunicator (911 Dispatcher)", desc:"Answer emergency calls and dispatch units.", traits:{C:0.6,S:0.5}, eduMin:"hs", majors:["criminal","public","communications"], salaryUSD:46000, queries:["911 Dispatcher","Public Safety Telecommunicator Entry"]},
+
+  // MEDIA, ARTS & EVENTS
+  {title:"Broadcast Production Assistant", desc:"Support live shoots and studio operations.", traits:{A:0.5,R:0.4,C:0.4}, eduMin:"somecollege", majors:["film","media","communications"], salaryUSD:42000, queries:["Production Assistant Broadcast","Studio Production Assistant"]},
+  {title:"Sound Technician (Entry)", desc:"Set up audio gear and run basic mixes.", traits:{R:0.6,A:0.4}, eduMin:"somecollege", majors:["audio","sound","music","media"], salaryUSD:44000, queries:["Sound Technician Entry Level","Audio Technician Junior"]},
+  {title:"Lighting Technician (Entry)", desc:"Rig and operate lighting for events.", traits:{R:0.7,C:0.3}, eduMin:"hs", majors:["theatre","stage","lighting"], salaryUSD:44000, queries:["Lighting Technician Entry","Stage Lighting Tech"]},
+  {title:"Motion Graphics Designer (Jr)", desc:"Animate titles and short explainers.", traits:{A:0.9,I:0.3}, eduMin:"somecollege", majors:["design","motion","animation","media"], salaryUSD:56000, queries:["Junior Motion Designer","Motion Graphics Designer Entry"]},
+  {title:"3D Modeler (Junior)", desc:"Create basic 3D assets for games/visualization.", traits:{A:0.8,I:0.3}, eduMin:"somecollege", majors:["3d","animation","game","design"], salaryUSD:56000, queries:["3D Modeler Junior","3D Artist Entry"]}
+]; // <<< CLOSE THE ARRAY WITH ];
+
+// (No trailing ROLES.push here; you've fully defined ROLES above)
     
-      // BUSINESS, FINANCE & LEGAL //
-      {title:"Revenue Operations Analyst (Entry)", desc:"Unify sales/marketing funnels and dashboards.", traits:{I:0.6,C:0.6,E:0.2}, eduMin:"bachelor", majors:["business","analytics","economics"], salaryUSD:62000, queries:["RevOps Analyst Entry","Revenue Operations Analyst Junior"]},
-      {title:"Credit Analyst (Entry)", desc:"Analyze financials and recommend credit limits.", traits:{I:0.7,C:0.6}, eduMin:"bachelor", majors:["finance","accounting","economics","business"], salaryUSD:60000, queries:["Credit Analyst Entry Level","Junior Credit Analyst"]},
-      {title:"Loan Processor (Entry)", desc:"Collect docs and verify loan application data.", traits:{C:0.8,S:0.3}, eduMin:"somecollege", majors:["finance","business"], salaryUSD:52000, queries:["Loan Processor Entry Level","Mortgage Loan Processor Junior"]},
-      {title:"Underwriting Assistant", desc:"Support underwriters with data and quotes.", traits:{C:0.7,I:0.5}, eduMin:"somecollege", majors:["insurance","finance","business"], salaryUSD:50000, queries:["Underwriting Assistant","Assistant Underwriter Entry"]},
-      {title:"Claims Adjuster Trainee", desc:"Investigate claims and coordinate settlements.", traits:{S:0.5,C:0.6}, eduMin:"somecollege", majors:["insurance","business","criminal"], salaryUSD:52000, queries:["Claims Adjuster Trainee","Entry Level Claims Adjuster"]},
-      {title:"Regulatory Affairs Assistant", desc:"Prepare submissions and track approvals.", traits:{C:0.8,I:0.4}, eduMin:"bachelor", majors:["biology","chemistry","pharma","regulatory"], salaryUSD:56000, queries:["Regulatory Affairs Assistant","RA Assistant Entry"]},
-      {title:"Scrum Master (Junior)", desc:"Facilitate standups and remove blockers.", traits:{C:0.6,S:0.5,E:0.4}, eduMin:"somecollege", majors:["business","information","project"], salaryUSD:65000, queries:["Junior Scrum Master","Scrum Master Entry Level"]},
-    
-      // SUPPLY CHAIN, LOGISTICS & TRADE //
-      {title:"Inventory Analyst (Entry)", desc:"Forecast and reconcile stock across locations.", traits:{I:0.6,C:0.7}, eduMin:"bachelor", majors:["supply","logistics","industrial","operations","business"], salaryUSD:56000, queries:["Inventory Analyst Entry Level","Junior Inventory Analyst"]},
-      {title:"Freight Broker Trainee", desc:"Match loads and carriers; manage schedules.", traits:{E:0.6,C:0.5}, eduMin:"hs", majors:["logistics","supply","business"], salaryUSD:50000, queries:["Freight Broker Trainee","Logistics Broker Entry"]},
-      {title:"Import/Export Coordinator (Entry)", desc:"Handle documentation and customs scheduling.", traits:{C:0.7,S:0.3}, eduMin:"assoc", majors:["logistics","supply","international","trade"], salaryUSD:52000, queries:["Import Export Coordinator Entry","Logistics Coordinator International"]},
-      {title:"Dispatcher (Transportation)", desc:"Assign routes and communicate with drivers.", traits:{C:0.6,S:0.5}, eduMin:"hs", majors:["logistics","transportation"], salaryUSD:46000, queries:["Transportation Dispatcher","Fleet Dispatcher Entry"]},
-    
-      // BUILT ENVIRONMENT & GEO //
-      {title:"CAD Drafter (Junior)", desc:"Create technical drawings from engineer notes.", traits:{A:0.4,C:0.6,R:0.5}, eduMin:"assoc", majors:["cad","drafting","mechanical","civil","architect"], salaryUSD:54000, queries:["CAD Drafter Junior","Drafting Technician Entry"]},
-      {title:"Surveying Technician", desc:"Assist field surveys and process measurements.", traits:{R:0.7,C:0.5}, eduMin:"hs", majors:["survey","civil","geomatics"], salaryUSD:50000, queries:["Survey Technician","Land Survey Technician Entry"]},
-      {title:"GIS Technician (Entry)", desc:"Edit spatial data and produce maps.", traits:{I:0.6,C:0.6}, eduMin:"assoc", majors:["gis","geography","planning","environment"], salaryUSD:52000, queries:["GIS Technician Entry Level","Junior GIS Technician"]},
-      {title:"Construction Estimator Assistant", desc:"Collect takeoffs and vendor quotes.", traits:{C:0.7,I:0.4,R:0.3}, eduMin:"assoc", majors:["construction","civil","estimating"], salaryUSD:56000, queries:["Estimator Assistant Construction","Junior Construction Estimator"]},
-    
-      // HEALTHCARE & LIFE SCIENCES //
-      {title:"Radiology Technologist (New Grad)", desc:"Perform imaging studies under supervision.", traits:{S:0.5,C:0.5}, eduMin:"assoc", majors:["radiology","imaging"], salaryUSD:64000, queries:["Radiologic Technologist New Grad","X-Ray Tech Entry"]},
-      {title:"Respiratory Therapist (New Grad)", desc:"Provide respiratory care and treatments.", traits:{S:0.7,C:0.4}, eduMin:"assoc", majors:["respiratory","health"], salaryUSD:68000, queries:["Respiratory Therapist New Grad","RRT Entry Level"]},
-      {title:"Phlebotomist", desc:"Draw blood samples and ensure proper labeling.", traits:{S:0.6,C:0.4}, eduMin:"cert", majors:["medical","phlebotomy","health"], salaryUSD:38000, queries:["Phlebotomist","Phlebotomy Technician Entry"]},
-      {title:"Health Information Technician", desc:"Manage medical records and coding workflows.", traits:{C:0.8}, eduMin:"assoc", majors:["health information","him","coding"], salaryUSD:50000, queries:["Health Information Technician","Medical Records Technician"]},
-      {title:"Medical Billing & Coding Specialist", desc:"Translate procedures into billing codes.", traits:{C:0.8}, eduMin:"cert", majors:["coding","billing","health information"], salaryUSD:46000, queries:["Medical Billing and Coding Specialist","Coder Entry Level"]},
-      {title:"EMT (Basic)", desc:"Provide emergency care and patient transport.", traits:{S:0.7,R:0.5}, eduMin:"cert", majors:["emt","paramedic","health"], salaryUSD:38000, queries:["EMT Basic","Emergency Medical Technician Entry"]},
-      {title:"Clinical Lab Animal Care Tech", desc:"Care for research animals and keep records.", traits:{S:0.5,C:0.5,R:0.4}, eduMin:"hs", majors:["biology","animal","veterinary"], salaryUSD:42000, queries:["Animal Care Technician Research","Lab Animal Technician Entry"]},
-    
-      // ENERGY, ENVIRONMENT & FIELD //
-      {title:"Solar Installer (Entry)", desc:"Assemble and mount solar arrays safely.", traits:{R:0.9,C:0.3}, eduMin:"hs", majors:["solar","electrical","renewable"], salaryUSD:52000, queries:["Solar Installer Entry Level","PV Installer Trainee"]},
-      {title:"Wind Turbine Technician (Trainee)", desc:"Assist with maintenance at height.", traits:{R:0.9,C:0.3}, eduMin:"assoc", majors:["wind","mechanical","electrical"], salaryUSD:60000, queries:["Wind Turbine Technician Trainee","Wind Tech Entry"]},
-      {title:"Sustainability Coordinator (Entry)", desc:"Track waste, energy, and ESG projects.", traits:{I:0.5,C:0.6}, eduMin:"bachelor", majors:["sustainability","environment","policy"], salaryUSD:54000, queries:["Sustainability Coordinator Entry Level","ESG Coordinator Junior"]},
-      {title:"Forestry Technician", desc:"Support forest surveys and conservation work.", traits:{R:0.7,I:0.4}, eduMin:"hs", majors:["forestry","environment","biology"], salaryUSD:46000, queries:["Forestry Technician","Forest Technician Entry"]},
-    
-      // REAL ESTATE, FACILITIES & SAFETY //
-      {title:"Property Management Assistant", desc:"Handle work orders, leasing files, and vendors.", traits:{C:0.6,S:0.4}, eduMin:"hs", majors:["real estate","business"], salaryUSD:46000, queries:["Property Management Assistant","Assistant Property Manager Entry"]},
-      {title:"Home/Building Inspector Trainee", desc:"Shadow inspections and write simple reports.", traits:{R:0.6,C:0.6}, eduMin:"hs", majors:["construction","inspection","real estate"], salaryUSD:52000, queries:["Home Inspector Trainee","Building Inspector Entry"]},
-      {title:"Home Energy Auditor (Entry)", desc:"Perform basic audits and recommend retrofits.", traits:{I:0.5,R:0.5}, eduMin:"somecollege", majors:["energy","construction","environment"], salaryUSD:52000, queries:["Energy Auditor Entry Level","Residential Energy Auditor"]},
-    
-      // EDUCATION, GOV & COMMUNITY //
-      {title:"Admissions Counselor (Entry)", desc:"Recruit and guide prospective students.", traits:{E:0.6,S:0.6}, eduMin:"bachelor", majors:["education","communications","business"], salaryUSD:47000, queries:["Admissions Counselor Entry","Enrollment Counselor Junior"]},
-      {title:"Financial Aid Counselor (Entry)", desc:"Advise students on aid options and paperwork.", traits:{S:0.7,C:0.6}, eduMin:"bachelor", majors:["education","business","finance"], salaryUSD:47000, queries:["Financial Aid Counselor Entry Level","Financial Aid Advisor Junior"]},
-      {title:"Case Management Aide", desc:"Assist with client intakes and referrals.", traits:{S:0.8,C:0.4}, eduMin:"hs", majors:["social","psychology","public"], salaryUSD:42000, queries:["Case Management Aide","Case Aide Entry"]},
-      {title:"Housing Specialist (Entry)", desc:"Process applications and coordinate placements.", traits:{S:0.7,C:0.5}, eduMin:"somecollege", majors:["public","social","policy"], salaryUSD:46000, queries:["Housing Specialist Entry Level","Housing Coordinator Junior"]},
-      {title:"Public Safety Telecommunicator (911 Dispatcher)", desc:"Answer emergency calls and dispatch units.", traits:{C:0.6,S:0.5}, eduMin:"hs", majors:["criminal","public","communications"], salaryUSD:46000, queries:["911 Dispatcher","Public Safety Telecommunicator Entry"]},
-    
-      // MEDIA, ARTS & EVENTS //
-      {title:"Broadcast Production Assistant", desc:"Support live shoots and studio operations.", traits:{A:0.5,R:0.4,C:0.4}, eduMin:"somecollege", majors:["film","media","communications"], salaryUSD:42000, queries:["Production Assistant Broadcast","Studio Production Assistant"]},
-      {title:"Sound Technician (Entry)", desc:"Set up audio gear and run basic mixes.", traits:{R:0.6,A:0.4}, eduMin:"somecollege", majors:["audio","sound","music","media"], salaryUSD:44000, queries:["Sound Technician Entry Level","Audio Technician Junior"]},
-      {title:"Lighting Technician (Entry)", desc:"Rig and operate lighting for events.", traits:{R:0.7,C:0.3}, eduMin:"hs", majors:["theatre","stage","lighting"], salaryUSD:44000, queries:["Lighting Technician Entry","Stage Lighting Tech"]},
-      {title:"Motion Graphics Designer (Jr)", desc:"Animate titles and short explainers.", traits:{A:0.9,I:0.3}, eduMin:"somecollege", majors:["design","motion","animation","media"], salaryUSD:56000, queries:["Junior Motion Designer","Motion Graphics Designer Entry"]},
-      {title:"3D Modeler (Junior)", desc:"Create basic 3D assets for games/visualization.", traits:{A:0.8,I:0.3}, eduMin:"somecollege", majors:["3d","animation","game","design"], salaryUSD:56000, queries:["3D Modeler Junior","3D Artist Entry"]}
-    );
+    console.log('ROLES loaded:', Array.isArray(ROLES) ? ROLES.length : 'missing');
 
     const EDU_RANK = {hs:0, somecollege:0.3, cert:0.2, assoc:0.4, bachelor:0.6, master:0.8, phd:1};
 
